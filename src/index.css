@@ -1,0 +1,90 @@
+/**
+ * 컬러 팔레트 디자인 시스템.md 의 CSS 변수
+ * 출처: 네이버 카페 AI_ssy (2026-10-29 분석)
+ */
+:root {
+  /* Primary Colors */
+  --color-primary: #03C75A;
+  --color-primary-light: #E2FAEA;
+  --color-primary-dark: #009F47;
+
+  /* Secondary Colors */
+  --color-secondary: #333333;
+  --color-accent: #FF4E59;
+
+  /* Background Colors */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F8F8;
+  --color-bg-tertiary: #F2F2F2;
+
+  /* Text Colors */
+  --color-text-heading: #222222;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+  --color-text-muted: #999999;
+
+  /* Border Colors */
+  --color-border: #E5E5E5;
+  --color-border-strong: #DDDDDD;
+
+  /* Interactive Colors */
+  --color-button-primary: #03C75A;
+  --color-button-hover: #009F47;
+  --color-link: #2CAE0C;
+  --color-link-hover: #009F47;
+}
+
+/* 다크모드 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #1FD171;
+    --color-primary-light: #0F3A24;
+    --color-primary-dark: #03C75A;
+
+    --color-secondary: #E5E5E5;
+    --color-accent: #FF6B74;
+
+    --color-bg-primary: #1B1C1E;
+    --color-bg-secondary: #222326;
+    --color-bg-tertiary: #2C2D31;
+
+    --color-text-heading: #F2F2F2;
+    --color-text-primary: #E5E5E5;
+    --color-text-secondary: #B3B3B3;
+    --color-text-muted: #8A8F94;
+
+    --color-border: #323232;
+    --color-border-strong: #444444;
+
+    --color-button-primary: #03C75A;
+    --color-button-hover: #1FD171;
+    --color-link: #1FD171;
+    --color-link-hover: #5BE59A;
+  }
+}
+
+/* CSS 초기화 */
+* {
+  box-sizing: border-box;
+}
+
+/* HTML, Body 초기화 */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+/* Root 앱 컨테이너 설정 */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
