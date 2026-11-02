@@ -1,4 +1,5 @@
 import Stack from '@mui/material/Stack';
+import ContactSection from '../components/landing/contact-section.jsx';
 import SectionCard from '../components/landing/section-card.jsx';
 
 const SECTIONS = [
@@ -22,11 +23,6 @@ const SECTIONS = [
     id: 'projects',
     title: 'Projects',
     description: '여기는 Projects 섹션입니다. 대표작 썸네일 3-4개와 \'더 보기\' 버튼이 들어갈 예정입니다.',
-  },
-  {
-    id: 'contact',
-    title: 'Contact',
-    description: '여기는 Contact 섹션입니다. 연락처, SNS, 간단한 메시지 폼이 들어갈 예정입니다.',
   },
 ];
 
@@ -53,6 +49,7 @@ function HomePage() {
           isHighlighted={ section.isHighlighted }
         />
       )) }
+      <ContactSection id="contact" order={ String(SECTIONS.length + 1).padStart(2, '0') } />
     </Stack>
   );
 }
