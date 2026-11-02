@@ -19,9 +19,9 @@ const TECH_TAGS = ['React', 'JavaScript', 'MUI', 'Supabase'];
 
 /** 프로필 주변에 떠 있는 카카오톡 스타일 말풍선 */
 const FLOATING_BUBBLES = [
-  { id: 'hello', text: '반가워요! 👋', position: { top: '4%', left: { xs: '-22%', md: '-20%' } }, delay: '0s' },
-  { id: 'study', text: '오늘도 공부 중 📚', position: { top: '38%', right: { xs: '-36%', md: '-22%' } }, delay: '0.8s' },
-  { id: 'guestbook', text: '방명록 남겨주세요 💌', position: { bottom: '0%', left: { xs: '-18%', md: '-14%' } }, delay: '1.6s' },
+  { id: 'hello', text: '반가워요! 👋', position: { top: -8, left: { xs: -72, md: -84 } }, delay: '0s' },
+  { id: 'study', text: '오늘도 공부 중 📚', position: { top: '44%', right: { xs: -104, md: -84 } }, delay: '0.8s' },
+  { id: 'guestbook', text: '방명록 남겨주세요 💌', position: { bottom: -12, left: { xs: -80, md: -96 } }, delay: '1.6s' },
 ];
 
 /** 같은 페이지의 섹션으로 부드럽게 스크롤 (HashRouter 라서 #앵커 링크 대신 사용) */
@@ -188,30 +188,40 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
           order: { xs: 1, md: 2 },
           position: 'relative',
           justifySelf: 'center',
-          width: { xs: 200, md: 260 },
-          height: { xs: 200, md: 260 },
+          width: { xs: 160, md: 200 },
+          height: { xs: 160, md: 200 },
         }}
       >
+        { /* 핑크 테두리 + 흰 여백 링 안에 사진을 둔다 */ }
         <Box
-          component="img"
-          src={ PROFILE.photo }
-          alt={ `${PROFILE.name} 프로필 사진` }
-          width={ 260 }
-          height={ 260 }
           sx={{
-            display: 'block',
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center top',
+            p: { xs: 1, md: 1.25 },
             borderRadius: '50%',
             bgcolor: 'background.paper',
-            border: 6,
+            border: 4,
             borderColor: 'primary.border',
             boxShadow: '0 12px 32px rgba(214, 58, 122, 0.18)',
             animation: 'heroFloat 4s ease-in-out infinite',
           }}
-        />
+        >
+          <Box
+            component="img"
+            src={ PROFILE.photo }
+            alt={ `${PROFILE.name} 프로필 사진` }
+            width={ 200 }
+            height={ 200 }
+            sx={{
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              borderRadius: '50%',
+            }}
+          />
+        </Box>
 
         { FLOATING_BUBBLES.map((bubble) => (
           <Box
