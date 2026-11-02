@@ -11,8 +11,8 @@ import GuestbookForm from './guestbook-form.jsx';
 import GuestbookList from './guestbook-list.jsx';
 import SocialLinks from './social-links.jsx';
 
-/** TODO: 실제 이메일 / 인스타그램 계정으로 교체 */
-const CONTACT_EMAIL = 'your-email@example.com';
+/** TODO: 실제 인스타그램 계정으로 교체 */
+const CONTACT_EMAIL = 'ssing9090@gmail.com';
 const INSTAGRAM_URL = 'https://www.instagram.com/';
 const GITHUB_URL = 'https://github.com/ssing9090-sys';
 
