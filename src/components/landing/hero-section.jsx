@@ -20,7 +20,7 @@ const TECH_TAGS = ['React', 'JavaScript', 'MUI', 'Supabase'];
 /** 프로필 주변에 떠 있는 카카오톡 스타일 말풍선 */
 const FLOATING_BUBBLES = [
   { id: 'hello', text: '반가워요! 👋', position: { top: -8, left: { xs: -72, md: -84 } }, delay: '0s' },
-  { id: 'study', text: '오늘도 공부 중 📚', position: { top: '44%', right: { xs: -104, md: -84 } }, delay: '0.8s' },
+  { id: 'study', text: '오늘도 공부 중 📚', position: { top: '44%', right: { xs: -104, md: -108 } }, delay: '0.8s' },
   { id: 'guestbook', text: '방명록 남겨주세요 💌', position: { bottom: -12, left: { xs: -80, md: -96 } }, delay: '1.6s' },
 ];
 
@@ -188,8 +188,8 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
           order: { xs: 1, md: 2 },
           position: 'relative',
           justifySelf: 'center',
-          width: { xs: 160, md: 200 },
-          height: { xs: 160, md: 200 },
+          width: { xs: 130, md: 160 },
+          height: { xs: 130, md: 160 },
         }}
       >
         { /* 핑크 테두리 + 흰 여백 링 안에 사진을 둔다 */ }
@@ -210,8 +210,8 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             component="img"
             src={ PROFILE.photo }
             alt={ `${PROFILE.name} 프로필 사진` }
-            width={ 200 }
-            height={ 200 }
+            width={ 160 }
+            height={ 160 }
             sx={{
               display: 'block',
               width: '100%',
