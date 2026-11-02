@@ -26,7 +26,7 @@ function GuestbookList({ entries, isLoading = false, error = '' }) {
     if (isLoading && entries.length === 0) {
       return (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}>
-          <CircularProgress size={ 28 } sx={{ color: 'pink.main' }} />
+          <CircularProgress size={ 28 } sx={{ color: 'primary.main' }} />
         </Box>
       );
     }
@@ -57,7 +57,7 @@ function GuestbookList({ entries, isLoading = false, error = '' }) {
         overflowY: 'auto',
         p: { xs: 1.5, md: 2 },
         borderRadius: 3,
-        bgcolor: 'pink.light',
+        bgcolor: 'primary.light',
       }}
     >
       { renderContent() }

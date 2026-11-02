@@ -46,16 +46,16 @@ function ContactSection({ id = 'contact', order = '05' }) {
       sx={{
         borderRadius: 3,
         border: 1,
-        borderColor: 'pink.border',
+        borderColor: 'primary.border',
         borderLeft: 6,
-        borderLeftColor: 'pink.main',
-        background: (theme) => `linear-gradient(180deg, ${theme.vars.palette.pink.light} 0%, ${theme.vars.palette.background.paper} 260px)`,
+        borderLeftColor: 'primary.main',
+        background: (theme) => `linear-gradient(180deg, ${theme.vars.palette.primary.light} 0%, ${theme.vars.palette.background.paper} 260px)`,
         px: { xs: 2, md: 4 },
         py: { xs: 3, md: 4 },
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-        <Chip label={ order } size="small" sx={{ bgcolor: 'pink.main', color: 'pink.contrastText', fontWeight: 700 }} />
+        <Chip label={ order } size="small" sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', fontWeight: 700 }} />
         <Typography
           id={ `${id}-title` }
           component="h2"

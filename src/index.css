@@ -1,21 +1,22 @@
 /**
- * 컬러 팔레트 디자인 시스템.md 의 CSS 변수
- * 출처: 네이버 카페 AI_ssy (2026-10-29 분석)
+ * 사이트 전체 컬러 팔레트 (메인 컬러: 핑크)
+ * theme.js 의 palette 값과 동일하게 유지
  */
 :root {
   /* Primary Colors */
-  --color-primary: #03C75A;
-  --color-primary-light: #E2FAEA;
-  --color-primary-dark: #009F47;
+  --color-primary: #D63A7A;
+  --color-primary-light: #FFE8F1;
+  --color-primary-dark: #AD1457;
+  --color-primary-border: #F8BBD0;
 
   /* Secondary Colors */
   --color-secondary: #333333;
-  --color-accent: #FF4E59;
+  --color-accent: #E53935;
 
   /* Background Colors */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F8F8F8;
-  --color-bg-tertiary: #F2F2F2;
+  --color-bg-secondary: #FFF8FB;
+  --color-bg-tertiary: #FFF0F6;
 
   /* Text Colors */
   --color-text-heading: #222222;
@@ -24,31 +25,26 @@
   --color-text-muted: #999999;
 
   /* Border Colors */
-  --color-border: #E5E5E5;
-  --color-border-strong: #DDDDDD;
+  --color-border: #F3E3EA;
+  --color-border-strong: #F8BBD0;
 
   /* Interactive Colors */
-  --color-button-primary: #03C75A;
-  --color-button-hover: #009F47;
-  --color-link: #2CAE0C;
-  --color-link-hover: #009F47;
-
-  /* Contact 섹션 핑크 (theme.js palette.pink 와 동일) */
-  --color-pink: #D63A7A;
-  --color-pink-light: #FFE8F1;
-  --color-pink-dark: #AD1457;
-  --color-pink-border: #F8BBD0;
+  --color-button-primary: #D63A7A;
+  --color-button-hover: #AD1457;
+  --color-link: #AD1457;
+  --color-link-hover: #880E4F;
 }
 
 /* 다크모드 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #1FD171;
-    --color-primary-light: #0F3A24;
-    --color-primary-dark: #03C75A;
+    --color-primary: #F48FB1;
+    --color-primary-light: #33202A;
+    --color-primary-dark: #F8A5C2;
+    --color-primary-border: #5C3346;
 
     --color-secondary: #E5E5E5;
-    --color-accent: #FF6B74;
+    --color-accent: #FF6B6B;
 
     --color-bg-primary: #1B1C1E;
     --color-bg-secondary: #222326;
@@ -59,18 +55,13 @@
     --color-text-secondary: #B3B3B3;
     --color-text-muted: #8A8F94;
 
-    --color-border: #323232;
-    --color-border-strong: #444444;
+    --color-border: #3A2E34;
+    --color-border-strong: #5C3346;
 
-    --color-button-primary: #03C75A;
-    --color-button-hover: #1FD171;
-    --color-link: #1FD171;
-    --color-link-hover: #5BE59A;
-
-    --color-pink: #F48FB1;
-    --color-pink-light: #33202A;
-    --color-pink-dark: #F8A5C2;
-    --color-pink-border: #5C3346;
+    --color-button-primary: #F48FB1;
+    --color-button-hover: #F8A5C2;
+    --color-link: #F8A5C2;
+    --color-link-hover: #FCC5D8;
   }
 }
 

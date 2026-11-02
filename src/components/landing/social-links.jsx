@@ -39,16 +39,16 @@ function SocialLinks({ links }) {
             sx={{
               width: 64,
               height: 64,
-              bgcolor: 'pink.light',
-              color: 'pink.dark',
+              bgcolor: 'primary.light',
+              color: 'primary.dark',
               border: 2,
-              borderColor: 'pink.border',
+              borderColor: 'primary.border',
               transition: 'background-color 0.2s, color 0.2s, transform 0.2s',
               '& svg': { fontSize: '1.8rem' },
               '&:hover': {
-                bgcolor: 'pink.main',
-                color: 'pink.contrastText',
-                borderColor: 'pink.main',
+                bgcolor: 'primary.main',
+                color: 'primary.contrastText',
+                borderColor: 'primary.main',
                 transform: 'scale(1.08)',
               },
             }}

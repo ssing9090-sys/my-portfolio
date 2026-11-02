@@ -58,8 +58,8 @@ const lockAdornment = {
 /** 핑크 포커스 색을 적용한 입력칸 스타일 */
 const fieldSx = {
   '& .MuiOutlinedInput-root': { borderRadius: 3 },
-  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'pink.main' },
-  '& .MuiInputLabel-root.Mui-focused': { color: 'pink.dark' },
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'primary.main' },
+  '& .MuiInputLabel-root.Mui-focused': { color: 'primary.dark' },
 };
 
 /**
@@ -145,15 +145,15 @@ function GuestbookForm({ onSubmit }) {
             px: 2,
             py: 1.25,
             borderRadius: 3,
-            bgcolor: 'pink.light',
+            bgcolor: 'primary.light',
           }}
         >
-          <Box sx={{ fontSize: '0.9rem', fontWeight: 700, color: 'pink.dark' }}>포트폴리오 별점</Box>
+          <Box sx={{ fontSize: '0.9rem', fontWeight: 700, color: 'primary.dark' }}>포트폴리오 별점</Box>
           <Rating
             name="guestbook-rating"
             value={ form.rating }
             onChange={ (event, value) => updateField('rating', value) }
-            sx={{ color: 'pink.main' }}
+            sx={{ color: 'primary.main' }}
           />
         </Box>
 
@@ -203,7 +203,7 @@ function GuestbookForm({ onSubmit }) {
           <Alert
             icon={ <CharacterAvatar index={ feedback.avatarIndex } size={ 28 } /> }
             onClose={ () => setFeedback(null) }
-            sx={{ alignItems: 'center', bgcolor: 'pink.light', color: 'text.primary', borderRadius: 3 }}
+            sx={{ alignItems: 'center', bgcolor: 'primary.light', color: 'text.primary', borderRadius: 3 }}
           >
             등록 완료! 이번엔 <strong>{ getCharacter(feedback.avatarIndex).name }</strong> 캐릭터가 뽑혔어요 🎉
           </Alert>
@@ -219,10 +219,10 @@ function GuestbookForm({ onSubmit }) {
           sx={{
             minHeight: 48,
             borderRadius: 3,
-            bgcolor: 'pink.main',
-            color: 'pink.contrastText',
+            bgcolor: 'primary.main',
+            color: 'primary.contrastText',
             fontSize: '1rem',
-            '&:hover': { bgcolor: 'pink.dark' },
+            '&:hover': { bgcolor: 'primary.dark' },
           }}
         >
           { isSubmitting ? '보내는 중...' : '방명록 남기기' }

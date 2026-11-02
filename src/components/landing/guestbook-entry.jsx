@@ -45,7 +45,7 @@ function GuestbookEntry({ entry }) {
               href={ `https://www.instagram.com/${entry.instagram}` }
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ fontSize: '0.75rem', color: 'pink.dark', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+              sx={{ fontSize: '0.75rem', color: 'primary.dark', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
             >
               @{ entry.instagram }
             </Box>
@@ -60,7 +60,7 @@ function GuestbookEntry({ entry }) {
               px: 1.5,
               py: 1,
               borderRadius: '4px 16px 16px 16px',
-              bgcolor: 'pink.bubble',
+              bgcolor: 'background.paper',
               boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
               fontSize: { xs: '0.9rem', md: '0.92rem' },
               lineHeight: 1.55,
@@ -74,7 +74,7 @@ function GuestbookEntry({ entry }) {
                 value={ entry.rating }
                 readOnly
                 size="small"
-                sx={{ display: 'flex', mb: 0.25, color: 'pink.main', fontSize: '0.95rem' }}
+                sx={{ display: 'flex', mb: 0.25, color: 'primary.main', fontSize: '0.95rem' }}
               />
             ) }
             { entry.message }

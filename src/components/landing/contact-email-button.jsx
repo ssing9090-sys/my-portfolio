@@ -39,13 +39,13 @@ function ContactEmailButton({ email }) {
           minHeight: 72,
           px: 3,
           borderRadius: 4,
-          bgcolor: 'pink.main',
-          color: 'pink.contrastText',
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
           fontSize: { xs: '1rem', md: '1.15rem' },
           fontWeight: 800,
           textTransform: 'none',
           wordBreak: 'break-all',
-          '&:hover': { bgcolor: 'pink.dark' },
+          '&:hover': { bgcolor: 'primary.dark' },
         }}
       >
         메일 보내기
@@ -57,11 +57,11 @@ function ContactEmailButton({ email }) {
         sx={{
           minHeight: 48,
           borderRadius: 4,
-          borderColor: 'pink.border',
-          color: 'pink.dark',
+          borderColor: 'primary.border',
+          color: 'primary.dark',
           textTransform: 'none',
           wordBreak: 'break-all',
-          '&:hover': { borderColor: 'pink.main', bgcolor: 'pink.light' },
+          '&:hover': { borderColor: 'primary.main', bgcolor: 'primary.light' },
         }}
       >
         { email }

@@ -28,7 +28,7 @@ function ContactPanel({ emoji, title, description, children }) {
         borderRadius: 4,
         bgcolor: 'background.paper',
         border: 1,
-        borderColor: 'pink.border',
+        borderColor: 'primary.border',
         boxShadow: '0 4px 16px rgba(214, 58, 122, 0.08)',
         transition: 'transform 0.2s, box-shadow 0.2s',
         '@media (hover: hover)': {
@@ -49,7 +49,7 @@ function ContactPanel({ emoji, title, description, children }) {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: '50%',
-            bgcolor: 'pink.light',
+            bgcolor: 'primary.light',
             fontSize: '1rem',
           }}
         >

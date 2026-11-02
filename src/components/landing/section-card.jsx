@@ -46,8 +46,8 @@ function SectionCard({ id, order, title, description, isHighlighted = false }) {
             label={ order }
             size="small"
             sx={{
-              bgcolor: 'primary.dark',
-              color: '#FFFFFF',
+              bgcolor: 'primary.main',
+              color: 'primary.contrastText',
               fontWeight: 700,
             }}
           />
