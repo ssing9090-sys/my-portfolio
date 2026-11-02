@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { getCharacter } from '../../utils/characters.js';
 import { formatChatTime } from '../../utils/format-date.js';
 import CharacterAvatar from './character-avatar.jsx';
 
@@ -8,7 +7,7 @@ import CharacterAvatar from './character-avatar.jsx';
  * GuestbookEntry 컴포넌트
  *
  * 방명록 한 건을 카카오톡 채팅 메시지처럼 보여준다.
- * (캐릭터 프로필 + "익명의 캐릭터" 닉네임 + 말풍선 + 옆에 작은 시간)
+ * (랜덤 캐릭터 프로필 + 작성자 이름 + 말풍선 + 옆에 작은 시간)
  *
  * Props:
  * @param {object} entry - guestbook 테이블의 공개 컬럼 데이터 [Required]
@@ -17,8 +16,6 @@ import CharacterAvatar from './character-avatar.jsx';
  * <GuestbookEntry entry={ entry } />
  */
 function GuestbookEntry({ entry }) {
-  const character = getCharacter(entry.avatar_index);
-
   return (
     <Box
       component="li"
@@ -37,7 +34,7 @@ function GuestbookEntry({ entry }) {
       <Box sx={{ flex: 1, minWidth: 0 }}>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 0.75, mb: 0.5 }}>
           <Box component="span" sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'text.primary' }}>
-            익명의 { character.name }
+            { entry.name }
           </Box>
           { entry.instagram && (
             <Box

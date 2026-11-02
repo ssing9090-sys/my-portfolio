@@ -84,7 +84,7 @@ function ContactSection({ id = 'contact', order = '05' }) {
           <SocialLinks links={ SOCIAL_LINKS } />
         </ContactPanel>
 
-        <ContactPanel emoji="✍️" title="방명록 남기기" description="이름은 비공개, 캐릭터는 랜덤!">
+        <ContactPanel emoji="✍️" title="방명록 남기기" description="프로필 캐릭터는 랜덤으로 뽑혀요!">
           <GuestbookForm onSubmit={ addEntry } />
         </ContactPanel>
 

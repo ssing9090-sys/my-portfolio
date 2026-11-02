@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase.js';
 
-/** 공개 조회 가능한 컬럼 (name, email, phone 은 비공개라 조회 권한 없음) */
-const PUBLIC_COLUMNS = 'id, message, instagram, rating, avatar_index, created_at';
+/** 공개 조회 가능한 컬럼 (email, phone 은 비공개라 조회 권한 없음) */
+const PUBLIC_COLUMNS = 'id, name, message, instagram, rating, avatar_index, created_at';
 const PAGE_SIZE = 30;
 const CONFIG_ERROR = '방명록 서버 설정이 없습니다. 환경변수를 확인해주세요.';
 

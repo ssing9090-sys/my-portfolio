@@ -118,8 +118,8 @@ function GuestbookForm({ onSubmit }) {
           value={ form.name }
           onChange={ handleChange('name') }
           error={ Boolean(errors.name) }
-          helperText={ errors.name || '이름은 비공개! 방명록엔 랜덤 캐릭터로 표시돼요.' }
-          slotProps={{ ...lockAdornment, htmlInput: { maxLength: 30 } }}
+          helperText={ errors.name || '방명록에 이름이 함께 표시돼요. 프로필은 랜덤 캐릭터!' }
+          slotProps={{ htmlInput: { maxLength: 30 } }}
           sx={ fieldSx }
         />
         <TextField
