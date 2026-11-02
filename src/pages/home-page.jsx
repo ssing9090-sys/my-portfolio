@@ -1,14 +1,10 @@
 import Stack from '@mui/material/Stack';
 import ContactSection from '../components/landing/contact-section.jsx';
+import HeroSection from '../components/landing/hero-section.jsx';
 import SectionCard from '../components/landing/section-card.jsx';
 
+/** Hero 다음에 이어지는, 아직 개발 전인 섹션들 */
 const SECTIONS = [
-  {
-    id: 'hero',
-    title: 'Hero',
-    description: '여기는 Hero 섹션입니다. 메인 비주얼, 이름, 간단 소개가 들어갈 예정입니다.',
-    isHighlighted: true,
-  },
   {
     id: 'about',
     title: 'About Me',
@@ -26,6 +22,9 @@ const SECTIONS = [
   },
 ];
 
+/** 섹션 순번을 '02' 형태로 변환 (Hero 가 01 이라 2번부터 시작) */
+const toOrder = (index) => String(index + 2).padStart(2, '0');
+
 /**
  * HomePage 컴포넌트
  *
@@ -39,17 +38,17 @@ const SECTIONS = [
 function HomePage() {
   return (
     <Stack spacing={{ xs: 2, md: 3 }}>
+      <HeroSection id="hero" contactId="contact" />
       { SECTIONS.map((section, index) => (
         <SectionCard
           key={ section.id }
           id={ section.id }
-          order={ String(index + 1).padStart(2, '0') }
+          order={ toOrder(index) }
           title={ section.title }
           description={ section.description }
-          isHighlighted={ section.isHighlighted }
         />
       )) }
-      <ContactSection id="contact" order={ String(SECTIONS.length + 1).padStart(2, '0') } />
+      <ContactSection id="contact" order={ toOrder(SECTIONS.length) } />
     </Stack>
   );
 }
