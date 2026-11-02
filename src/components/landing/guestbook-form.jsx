@@ -5,23 +5,19 @@ import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import InputAdornment from '@mui/material/InputAdornment';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
-const EMOJI_OPTIONS = ['😀', '😍', '👍', '🎉', '🔥', '☕', '🌱', '✨'];
-const COLOR_OPTIONS = ['#222222', '#FF4E59', '#FF9F43', '#FECA57', '#03C75A', '#2E86DE', '#8E44AD', '#F78FB3'];
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import { getCharacter } from '../../utils/characters.js';
+import CharacterAvatar from './character-avatar.jsx';
 
 const INITIAL_FORM = {
   name: '',
   message: '',
+  rating: null,
+  instagram: '',
   email: '',
   phone: '',
-  instagram: '',
-  favoriteColor: '',
-  keyword: '',
-  emoji: '',
-  rating: null,
 };
 
 /** 폼 값을 검증하고 오류 메시지 객체를 반환 (DB check 제약과 동일한 기준) */
@@ -29,9 +25,9 @@ function validateForm(form) {
   const errors = {};
   if (!form.name.trim()) errors.name = '이름을 입력해주세요.';
   if (!form.message.trim()) errors.message = '메시지를 입력해주세요.';
-  if (form.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) errors.email = '이메일 형식이 올바르지 않습니다.';
+  if (form.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) errors.email = '이메일 형식이 올바르지 않아요.';
   if (form.phone && !/^[0-9+\- ]{7,20}$/.test(form.phone)) errors.phone = '숫자, +, - 만 입력해주세요.';
-  if (form.instagram && !/^@?[A-Za-z0-9._]{1,30}$/.test(form.instagram)) errors.instagram = '영문, 숫자, ., _ 만 사용할 수 있습니다.';
+  if (form.instagram && !/^@?[A-Za-z0-9._]{1,30}$/.test(form.instagram)) errors.instagram = '영문, 숫자, ., _ 만 사용할 수 있어요.';
   return errors;
 }
 
@@ -41,23 +37,39 @@ function toEntry(form) {
   return {
     name: form.name.trim(),
     message: form.message.trim(),
+    rating: form.rating,
+    instagram: orNull(form.instagram.replace(/^@/, '')),
     email: orNull(form.email),
     phone: orNull(form.phone),
-    instagram: orNull(form.instagram.replace(/^@/, '')),
-    favorite_color: form.favoriteColor || null,
-    keyword: orNull(form.keyword),
-    emoji: form.emoji || null,
-    rating: form.rating,
   };
 }
+
+/** 비공개 입력칸 끝에 붙는 자물쇠 아이콘 */
+const lockAdornment = {
+  input: {
+    endAdornment: (
+      <InputAdornment position="end">
+        <LockOutlinedIcon sx={{ fontSize: '1rem', color: 'text.disabled' }} />
+      </InputAdornment>
+    ),
+  },
+};
+
+/** 핑크 포커스 색을 적용한 입력칸 스타일 */
+const fieldSx = {
+  '& .MuiOutlinedInput-root': { borderRadius: 3 },
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'pink.main' },
+  '& .MuiInputLabel-root.Mui-focused': { color: 'pink.dark' },
+};
 
 /**
  * GuestbookForm 컴포넌트
  *
- * 방명록 작성 폼. 필수(이름, 메시지)·재미 정보·비공개 연락처 순으로 세로 배치한다.
+ * 방명록 작성 폼. 이름·메시지(필수) → 별점 → 연락처(선택) 순으로 배치하고,
+ * 등록 후 서버가 랜덤으로 정해준 캐릭터를 알려준다.
  *
  * Props:
- * @param {function} onSubmit - 작성 데이터(entry)를 받아 저장하는 비동기 함수 [Required]
+ * @param {function} onSubmit - 작성 데이터(entry)를 받아 저장하고 캐릭터 번호를 반환하는 비동기 함수 [Required]
  *
  * Example usage:
  * <GuestbookForm onSubmit={ addEntry } />
@@ -84,9 +96,9 @@ function GuestbookForm({ onSubmit }) {
     setIsSubmitting(true);
     setFeedback(null);
     try {
-      await onSubmit(toEntry(form));
+      const avatarIndex = await onSubmit(toEntry(form));
       setForm(INITIAL_FORM);
-      setFeedback({ severity: 'success', message: '방명록이 등록되었습니다. 감사합니다!' });
+      setFeedback({ severity: 'success', avatarIndex });
     } catch (submitError) {
       setFeedback({ severity: 'error', message: submitError.message });
     } finally {
@@ -94,169 +106,126 @@ function GuestbookForm({ onSubmit }) {
     }
   };
 
-  const sectionLabelSx = { fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary', mb: 1 };
-  const toggleSx = {
-    '& .MuiToggleButton-root.Mui-selected': {
-      bgcolor: 'text.primary',
-      color: 'background.paper',
-      '&:hover': { bgcolor: 'text.secondary' },
-    },
-  };
+  const groupLabelSx = { fontSize: '0.8rem', fontWeight: 700, color: 'text.secondary', mb: 1 };
 
   return (
     <Box component="form" noValidate onSubmit={ handleSubmit }>
-      <Stack spacing={ 3 }>
-        <Stack spacing={ 2 }>
-          <TextField
-            label="이름"
-            required
-            size="small"
-            value={ form.name }
-            onChange={ handleChange('name') }
-            error={ Boolean(errors.name) }
-            helperText={ errors.name }
-            slotProps={{ htmlInput: { maxLength: 30 } }}
-          />
-          <TextField
-            label="메시지"
-            required
-            multiline
-            minRows={ 3 }
-            value={ form.message }
-            onChange={ handleChange('message') }
-            error={ Boolean(errors.message) }
-            helperText={ errors.message || `${form.message.length} / 500` }
-            slotProps={{ htmlInput: { maxLength: 500 } }}
-          />
-        </Stack>
+      <Stack spacing={ 2.5 }>
+        <TextField
+          label="이름"
+          required
+          size="small"
+          value={ form.name }
+          onChange={ handleChange('name') }
+          error={ Boolean(errors.name) }
+          helperText={ errors.name || '이름은 비공개! 방명록엔 랜덤 캐릭터로 표시돼요.' }
+          slotProps={{ ...lockAdornment, htmlInput: { maxLength: 30 } }}
+          sx={ fieldSx }
+        />
+        <TextField
+          label="메시지"
+          required
+          multiline
+          minRows={ 3 }
+          placeholder="따뜻한 한마디를 남겨주세요 :)"
+          value={ form.message }
+          onChange={ handleChange('message') }
+          error={ Boolean(errors.message) }
+          helperText={ errors.message || `${form.message.length} / 500` }
+          slotProps={{ htmlInput: { maxLength: 500 } }}
+          sx={ fieldSx }
+        />
 
-        <Box>
-          <Box sx={ sectionLabelSx }>이모지 선택</Box>
-          <ToggleButtonGroup
-            exclusive
-            size="small"
-            value={ form.emoji }
-            onChange={ (event, value) => updateField('emoji', value ?? '') }
-            sx={{ flexWrap: 'wrap', ...toggleSx }}
-          >
-            { EMOJI_OPTIONS.map((emoji) => (
-              <ToggleButton key={ emoji } value={ emoji } aria-label={ emoji } sx={{ fontSize: '1.2rem', px: 1.5 }}>
-                { emoji }
-              </ToggleButton>
-            )) }
-          </ToggleButtonGroup>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 1,
+            px: 2,
+            py: 1.25,
+            borderRadius: 3,
+            bgcolor: 'pink.light',
+          }}
+        >
+          <Box sx={{ fontSize: '0.9rem', fontWeight: 700, color: 'pink.dark' }}>포트폴리오 별점</Box>
+          <Rating
+            name="guestbook-rating"
+            value={ form.rating }
+            onChange={ (event, value) => updateField('rating', value) }
+            sx={{ color: 'pink.main' }}
+          />
         </Box>
 
         <Box>
-          <Box sx={ sectionLabelSx }>좋아하는 색깔</Box>
-          <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
-            { COLOR_OPTIONS.map((color) => {
-              const isSelected = form.favoriteColor === color;
-              return (
-                <Box
-                  key={ color }
-                  component="button"
-                  type="button"
-                  aria-label={ `색상 ${color}` }
-                  aria-pressed={ isSelected }
-                  onClick={ () => updateField('favoriteColor', isSelected ? '' : color) }
-                  sx={{
-                    width: 32,
-                    height: 32,
-                    p: 0,
-                    borderRadius: '50%',
-                    bgcolor: color,
-                    cursor: 'pointer',
-                    border: 2,
-                    borderColor: 'background.paper',
-                    outline: 2,
-                    outlineColor: isSelected ? 'text.primary' : 'transparent',
-                    transition: 'outline-color 0.2s',
-                  }}
-                />
-              );
-            }) }
-          </Stack>
-        </Box>
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={ 2 } sx={{ alignItems: { sm: 'center' } }}>
-          <TextField
-            label="한마디 키워드"
-            size="small"
-            placeholder="예: 화이팅"
-            value={ form.keyword }
-            onChange={ handleChange('keyword') }
-            slotProps={{ htmlInput: { maxLength: 20 } }}
-            sx={{ flex: 1 }}
-          />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Box sx={{ fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary' }}>별점</Box>
-            <Rating
-              value={ form.rating }
-              onChange={ (event, value) => updateField('rating', value) }
-              sx={{ color: 'text.primary' }}
-            />
-          </Box>
-        </Stack>
-
-        <Box>
-          <Box sx={ sectionLabelSx }>연락처 (선택)</Box>
-          <Stack spacing={ 2 }>
+          <Box sx={ groupLabelSx }>연락처 (선택)</Box>
+          <Stack spacing={ 1.5 }>
             <TextField
-              label="인스타그램 계정"
+              label="인스타그램"
               size="small"
               placeholder="@username"
               value={ form.instagram }
               onChange={ handleChange('instagram') }
               error={ Boolean(errors.instagram) }
-              helperText={ errors.instagram || '방명록에 공개됩니다.' }
+              helperText={ errors.instagram || '방명록에 함께 보여요.' }
+              sx={ fieldSx }
             />
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={ 2 }>
-              <TextField
-                label="이메일"
-                type="email"
-                size="small"
-                fullWidth
-                value={ form.email }
-                onChange={ handleChange('email') }
-                error={ Boolean(errors.email) }
-                helperText={ errors.email }
-                slotProps={{ htmlInput: { maxLength: 100 } }}
-              />
-              <TextField
-                label="전화번호"
-                type="tel"
-                size="small"
-                fullWidth
-                value={ form.phone }
-                onChange={ handleChange('phone') }
-                error={ Boolean(errors.phone) }
-                helperText={ errors.phone }
-                slotProps={{ htmlInput: { maxLength: 20 } }}
-              />
-            </Stack>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.8rem', color: 'text.disabled' }}>
-              <LockOutlinedIcon sx={{ fontSize: '1rem' }} />
-              이메일과 전화번호는 비공개로 저장되며 방명록에 표시되지 않습니다.
-            </Box>
+            <TextField
+              label="이메일"
+              type="email"
+              size="small"
+              value={ form.email }
+              onChange={ handleChange('email') }
+              error={ Boolean(errors.email) }
+              helperText={ errors.email }
+              slotProps={{ ...lockAdornment, htmlInput: { maxLength: 100 } }}
+              sx={ fieldSx }
+            />
+            <TextField
+              label="전화번호"
+              type="tel"
+              size="small"
+              value={ form.phone }
+              onChange={ handleChange('phone') }
+              error={ Boolean(errors.phone) }
+              helperText={ errors.phone }
+              slotProps={{ ...lockAdornment, htmlInput: { maxLength: 20 } }}
+              sx={ fieldSx }
+            />
           </Stack>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 1, fontSize: '0.75rem', color: 'text.secondary' }}>
+            <LockOutlinedIcon sx={{ fontSize: '0.9rem' }} />
+            자물쇠 표시 항목은 비공개로 저장되어 다른 사람에게 보이지 않아요.
+          </Box>
         </Box>
 
-        { feedback && <Alert severity={ feedback.severity }>{ feedback.message }</Alert> }
+        { feedback?.severity === 'success' && (
+          <Alert
+            icon={ <CharacterAvatar index={ feedback.avatarIndex } size={ 28 } /> }
+            onClose={ () => setFeedback(null) }
+            sx={{ alignItems: 'center', bgcolor: 'pink.light', color: 'text.primary', borderRadius: 3 }}
+          >
+            등록 완료! 이번엔 <strong>{ getCharacter(feedback.avatarIndex).name }</strong> 캐릭터가 뽑혔어요 🎉
+          </Alert>
+        ) }
+        { feedback?.severity === 'error' && <Alert severity="error">{ feedback.message }</Alert> }
 
         <Button
           type="submit"
           variant="contained"
           disableElevation
           disabled={ isSubmitting }
+          endIcon={ <SendRoundedIcon /> }
           sx={{
-            py: 1.25,
-            bgcolor: 'text.primary',
-            color: 'background.paper',
-            '&:hover': { bgcolor: 'text.secondary' },
+            minHeight: 48,
+            borderRadius: 3,
+            bgcolor: 'pink.main',
+            color: 'pink.contrastText',
+            fontSize: '1rem',
+            '&:hover': { bgcolor: 'pink.dark' },
           }}
         >
-          { isSubmitting ? '등록 중...' : '방명록 남기기' }
+          { isSubmitting ? '보내는 중...' : '방명록 남기기' }
         </Button>
       </Stack>
     </Box>

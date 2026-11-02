@@ -1,41 +1,32 @@
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import useGuestbook from '../../hooks/use-guestbook.js';
-import ContactInfoList from './contact-info-list.jsx';
+import ContactEmailButton from './contact-email-button.jsx';
+import ContactPanel from './contact-panel.jsx';
 import GuestbookForm from './guestbook-form.jsx';
 import GuestbookList from './guestbook-list.jsx';
 import SocialLinks from './social-links.jsx';
 
-/** TODO: 실제 이메일 / 지역 / 인스타그램 계정으로 교체 */
+/** TODO: 실제 이메일 / 인스타그램 계정으로 교체 */
 const CONTACT_EMAIL = 'your-email@example.com';
 const INSTAGRAM_URL = 'https://www.instagram.com/';
 const GITHUB_URL = 'https://github.com/ssing9090-sys';
 
-const CONTACT_ITEMS = [
-  { id: 'email', icon: <EmailOutlinedIcon fontSize="small" />, label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
-  { id: 'github', icon: <GitHubIcon fontSize="small" />, label: 'GitHub', value: 'github.com/ssing9090-sys', href: GITHUB_URL },
-  { id: 'location', icon: <LocationOnOutlinedIcon fontSize="small" />, label: 'Location', value: 'Seoul, Korea' },
-];
-
 const SOCIAL_LINKS = [
-  { id: 'github', icon: <GitHubIcon />, label: 'GitHub', href: GITHUB_URL },
   { id: 'instagram', icon: <InstagramIcon />, label: 'Instagram', href: INSTAGRAM_URL },
-  { id: 'email', icon: <EmailOutlinedIcon />, label: 'Email', href: `mailto:${CONTACT_EMAIL}` },
+  { id: 'github', icon: <GitHubIcon />, label: 'GitHub', href: GITHUB_URL },
+  { id: 'email', icon: <EmailRoundedIcon />, label: 'Email', href: `mailto:${CONTACT_EMAIL}` },
 ];
 
 /**
  * ContactSection 컴포넌트
  *
- * Home 페이지의 Contact 섹션. 연락처 → SNS → 방명록 작성 → 방명록 목록 순으로 세로 배치한다.
- * 무채색(검정/흰색/회색) 톤으로 깔끔하고 심플하게 구성한다.
+ * Home 페이지의 Contact 섹션. 핑크 톤의 친근하고 따뜻한 분위기로,
+ * [이메일 | SNS] / [방명록 작성 | 방명록 채팅방] 을 좌우 2개씩 배치한다. (모바일은 세로 1열)
  *
  * Props:
  * @param {string} id - 섹션 앵커 id [Optional, 기본값: 'contact']
@@ -47,72 +38,66 @@ const SOCIAL_LINKS = [
 function ContactSection({ id = 'contact', order = '05' }) {
   const { entries, isLoading, error, addEntry } = useGuestbook();
 
-  const subTitleSx = {
-    fontSize: { xs: '1rem', md: '1.1rem' },
-    fontWeight: 700,
-    color: 'text.primary',
-    mb: 2,
-  };
-
   return (
-    <Card
+    <Box
       id={ id }
       component="section"
-      elevation={ 0 }
+      aria-labelledby={ `${id}-title` }
       sx={{
-        bgcolor: 'background.paper',
+        borderRadius: 3,
         border: 1,
-        borderColor: 'divider',
+        borderColor: 'pink.border',
         borderLeft: 6,
-        borderLeftColor: 'text.primary',
+        borderLeftColor: 'pink.main',
+        background: (theme) => `linear-gradient(180deg, ${theme.vars.palette.pink.light} 0%, ${theme.vars.palette.background.paper} 260px)`,
+        px: { xs: 2, md: 4 },
+        py: { xs: 3, md: 4 },
       }}
     >
-      <CardContent sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 4 } }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-          <Chip
-            label={ order }
-            size="small"
-            sx={{ bgcolor: 'text.primary', color: 'background.paper', fontWeight: 700 }}
-          />
-          <Typography
-            component="h2"
-            sx={{
-              fontSize: { xs: '1.25rem', md: '1.5rem' },
-              fontWeight: 800,
-              lineHeight: 1.2,
-              color: 'text.primary',
-            }}
-          >
-            Contact
-          </Typography>
-        </Box>
-        <Typography sx={{ fontSize: { xs: '0.95rem', md: '1.05rem' }, lineHeight: 1.6, color: 'text.secondary', mb: 4 }}>
-          함께 이야기 나누고 싶으시다면 언제든 연락주세요. 방명록에 한마디 남겨주셔도 좋아요!
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+        <Chip label={ order } size="small" sx={{ bgcolor: 'pink.main', color: 'pink.contrastText', fontWeight: 700 }} />
+        <Typography
+          id={ `${id}-title` }
+          component="h2"
+          sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 800, lineHeight: 1.2, color: 'text.primary' }}
+        >
+          Contact
         </Typography>
+      </Box>
+      <Typography sx={{ fontSize: { xs: '0.95rem', md: '1.05rem' }, lineHeight: 1.6, color: 'text.secondary', mb: { xs: 3, md: 4 } }}>
+        반가워요! 👋 궁금한 점이나 하고 싶은 이야기가 있다면 편하게 연락주세요.
+        <br />
+        방명록에 한마디 남겨주시면 귀여운 캐릭터가 대신 인사해드려요 💕
+      </Typography>
 
-        <Box component="section" aria-label="연락처" sx={{ mb: 4 }}>
-          <Typography component="h3" sx={ subTitleSx }>연락처</Typography>
-          <ContactInfoList items={ CONTACT_ITEMS } />
-        </Box>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          gap: { xs: 2, md: 3 },
+        }}
+      >
+        <ContactPanel emoji="💌" title="이메일" description="메일은 언제든 환영이에요">
+          <ContactEmailButton email={ CONTACT_EMAIL } />
+        </ContactPanel>
 
-        <Box component="section" aria-label="SNS" sx={{ mb: 4 }}>
-          <Typography component="h3" sx={ subTitleSx }>SNS</Typography>
+        <ContactPanel emoji="🌸" title="SNS" description="일상과 작업 기록을 구경해보세요">
           <SocialLinks links={ SOCIAL_LINKS } />
-        </Box>
+        </ContactPanel>
 
-        <Divider sx={{ mb: 4 }} />
-
-        <Box component="section" aria-label="방명록 작성" sx={{ mb: 4 }}>
-          <Typography component="h3" sx={ subTitleSx }>방명록 남기기</Typography>
+        <ContactPanel emoji="✍️" title="방명록 남기기" description="이름은 비공개, 캐릭터는 랜덤!">
           <GuestbookForm onSubmit={ addEntry } />
-        </Box>
+        </ContactPanel>
 
-        <Box component="section" aria-label="방명록 목록">
-          <Typography component="h3" sx={ subTitleSx }>방명록</Typography>
+        <ContactPanel
+          emoji="💬"
+          title="방명록"
+          description={ entries.length > 0 ? `최근 메시지 ${entries.length}개 · 최신순` : '최신순으로 보여드려요' }
+        >
           <GuestbookList entries={ entries } isLoading={ isLoading } error={ error } />
-        </Box>
-      </CardContent>
-    </Card>
+        </ContactPanel>
+      </Box>
+    </Box>
   );
 }
 

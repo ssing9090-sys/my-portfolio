@@ -1,11 +1,10 @@
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
 
 /**
  * SocialLinks 컴포넌트
  *
- * SNS 링크를 동그란 아이콘 버튼으로 나란히 보여준다.
+ * SNS 링크를 동그란 핑크 아이콘 버튼으로 나란히 보여주고, 버튼 아래에 이름을 붙인다.
  *
  * Props:
  * @param {Array<{ id: string, icon: element, label: string, href: string }>} links - SNS 링크 목록 [Required]
@@ -15,30 +14,53 @@ import Tooltip from '@mui/material/Tooltip';
  */
 function SocialLinks({ links }) {
   return (
-    <Stack direction="row" spacing={ 1.5 }>
+    <Box
+      component="ul"
+      sx={{
+        listStyle: 'none',
+        m: 0,
+        p: 0,
+        flex: 1,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        gap: 2,
+      }}
+    >
       { links.map((link) => (
-        <Tooltip key={ link.id } title={ link.label }>
+        <Box component="li" key={ link.id } sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
           <IconButton
             component="a"
             href={ link.href }
-            target="_blank"
+            target={ link.href.startsWith('mailto:') ? undefined : '_blank' }
             rel="noopener noreferrer"
             aria-label={ link.label }
             sx={{
-              width: 48,
-              height: 48,
-              border: 1,
-              borderColor: 'text.primary',
-              color: 'text.primary',
-              transition: 'background-color 0.2s, color 0.2s',
-              '&:hover': { bgcolor: 'text.primary', color: 'background.paper' },
+              width: 64,
+              height: 64,
+              bgcolor: 'pink.light',
+              color: 'pink.dark',
+              border: 2,
+              borderColor: 'pink.border',
+              transition: 'background-color 0.2s, color 0.2s, transform 0.2s',
+              '& svg': { fontSize: '1.8rem' },
+              '&:hover': {
+                bgcolor: 'pink.main',
+                color: 'pink.contrastText',
+                borderColor: 'pink.main',
+                transform: 'scale(1.08)',
+              },
             }}
           >
             { link.icon }
           </IconButton>
-        </Tooltip>
+          <Box component="span" sx={{ fontSize: '0.8rem', fontWeight: 700, color: 'text.secondary' }}>
+            { link.label }
+          </Box>
+        </Box>
       )) }
-    </Stack>
+    </Box>
   );
 }
 

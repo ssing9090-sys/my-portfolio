@@ -11,6 +11,15 @@ const lightPalette = {
   background: { default: '#F8F8F8', paper: '#FFFFFF' },
   text: { primary: '#333333', secondary: '#666666', disabled: '#999999' },
   divider: '#E5E5E5',
+  /** Contact 섹션 전용 핑크 계열 (main: 흰 굵은 글씨 버튼, dark: 흰 배경 위 텍스트) */
+  pink: {
+    main: '#D63A7A',
+    light: '#FFE8F1',
+    dark: '#AD1457',
+    contrastText: '#FFFFFF',
+    border: '#F8BBD0',
+    bubble: '#FFFFFF',
+  },
 };
 
 const darkPalette = {
@@ -20,6 +29,14 @@ const darkPalette = {
   background: { default: '#222326', paper: '#1B1C1E' },
   text: { primary: '#E5E5E5', secondary: '#B3B3B3', disabled: '#8A8F94' },
   divider: '#323232',
+  pink: {
+    main: '#F48FB1',
+    light: '#33202A',
+    dark: '#F8A5C2',
+    contrastText: '#1B1C1E',
+    border: '#5C3346',
+    bubble: '#2C2D31',
+  },
 };
 
 const theme = createTheme({

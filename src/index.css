@@ -32,6 +32,12 @@
   --color-button-hover: #009F47;
   --color-link: #2CAE0C;
   --color-link-hover: #009F47;
+
+  /* Contact 섹션 핑크 (theme.js palette.pink 와 동일) */
+  --color-pink: #D63A7A;
+  --color-pink-light: #FFE8F1;
+  --color-pink-dark: #AD1457;
+  --color-pink-border: #F8BBD0;
 }
 
 /* 다크모드 */
@@ -60,6 +66,11 @@
     --color-button-hover: #1FD171;
     --color-link: #1FD171;
     --color-link-hover: #5BE59A;
+
+    --color-pink: #F48FB1;
+    --color-pink-light: #33202A;
+    --color-pink-dark: #F8A5C2;
+    --color-pink-border: #5C3346;
   }
 }
 
