@@ -91,7 +91,16 @@ function ProjectCard({ project }) {
             </Box>
           )) }
         </Box>
-        <Box sx={{ mt: 'auto', pt: 0.5, display: 'flex', gap: 1 }}>
+        <Box
+          sx={{
+            mt: 'auto',
+            pt: 0.5,
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 1,
+            '& > *': { flex: '1 1 112px', width: 'auto' },
+          }}
+        >
           <ProjectLinkButton
             href={ detailUrl }
             label="Live Demo"
