@@ -9,8 +9,8 @@ import toGithubUrl from '../../utils/to-github-url.js';
 import ProjectLinkButton from './project-link-button.jsx';
 import ProjectThumbnail from './project-thumbnail.jsx';
 
-/** 호버 시 카드 배율 (기획서: 0.2배 확대) */
-const HOVER_SCALE = 1.2;
+/** 호버 시 카드 배율 */
+const HOVER_SCALE = 1.02;
 
 /**
  * ProjectCard 컴포넌트
