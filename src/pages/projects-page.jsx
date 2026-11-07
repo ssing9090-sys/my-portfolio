@@ -1,7 +1,12 @@
-import PagePlaceholder from '../components/ui/page-placeholder.jsx';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ProjectGrid from '../components/projects/project-grid.jsx';
+import useProjects from '../hooks/use-projects.js';
 
 /**
  * ProjectsPage 컴포넌트
+ *
+ * Supabase 에 등록된 프로젝트를 카드 그리드로 보여주는 페이지.
  *
  * Props: 없음
  *
@@ -9,11 +14,24 @@ import PagePlaceholder from '../components/ui/page-placeholder.jsx';
  * <ProjectsPage />
  */
 function ProjectsPage() {
+  const { projects, isLoading, error } = useProjects();
+
   return (
-    <PagePlaceholder
-      title="Projects"
-      description="Projects 페이지가 개발될 공간입니다. 포트폴리오 작품들이 들어갈 예정입니다."
-    />
+    <Box component="section">
+      <Typography
+        component="h1"
+        sx={{
+          fontSize: { xs: '2rem', md: '3rem' },
+          fontWeight: 800,
+          lineHeight: 1.2,
+          color: 'text.primary',
+          mb: { xs: 3, md: 4 },
+        }}
+      >
+        Projects
+      </Typography>
+      <ProjectGrid projects={ projects } isLoading={ isLoading } error={ error } />
+    </Box>
   );
 }
 
