@@ -1,67 +1,67 @@
 /**
- * 사이트 전체 컬러 팔레트 (메인 컬러: 핑크)
+ * 사이트 전체 컬러 팔레트 (메인 컬러: 오렌지)
  * theme.js 의 palette 값과 동일하게 유지
  */
 :root {
   /* Primary Colors */
-  --color-primary: #D63A7A;
-  --color-primary-light: #FFE8F1;
-  --color-primary-dark: #AD1457;
-  --color-primary-border: #F8BBD0;
+  --color-primary: #F7A66F;
+  --color-primary-light: #FFEFE3;
+  --color-primary-dark: #A8500F;
+  --color-primary-border: #FAD4B8;
 
   /* Secondary Colors */
-  --color-secondary: #333333;
-  --color-accent: #E53935;
+  --color-secondary: #3D2E26;
+  --color-accent: #D32F2F;
 
   /* Background Colors */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FFF8FB;
-  --color-bg-tertiary: #FFF0F6;
+  --color-bg-secondary: #FFF9F4;
+  --color-bg-tertiary: #FFF3E9;
 
   /* Text Colors */
-  --color-text-heading: #222222;
-  --color-text-primary: #333333;
-  --color-text-secondary: #666666;
-  --color-text-muted: #999999;
+  --color-text-heading: #2E221B;
+  --color-text-primary: #3D2E26;
+  --color-text-secondary: #6E5A4E;
+  --color-text-muted: #8C7A6E;
 
   /* Border Colors */
-  --color-border: #F3E3EA;
-  --color-border-strong: #F8BBD0;
+  --color-border: #F5E6DA;
+  --color-border-strong: #FAD4B8;
 
   /* Interactive Colors */
-  --color-button-primary: #D63A7A;
-  --color-button-hover: #AD1457;
-  --color-link: #AD1457;
-  --color-link-hover: #880E4F;
+  --color-button-primary: #F7A66F;
+  --color-button-hover: #F28F52;
+  --color-link: #A8500F;
+  --color-link-hover: #8A4009;
 }
 
 /* 다크모드 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #F48FB1;
-    --color-primary-light: #33202A;
-    --color-primary-dark: #F8A5C2;
-    --color-primary-border: #5C3346;
+    --color-primary: #F9B98D;
+    --color-primary-light: #33261E;
+    --color-primary-dark: #FFC299;
+    --color-primary-border: #5C4232;
 
-    --color-secondary: #E5E5E5;
+    --color-secondary: #EDE4DD;
     --color-accent: #FF6B6B;
 
-    --color-bg-primary: #1B1C1E;
-    --color-bg-secondary: #222326;
-    --color-bg-tertiary: #2C2D31;
+    --color-bg-primary: #1C1917;
+    --color-bg-secondary: #24201D;
+    --color-bg-tertiary: #2E2824;
 
-    --color-text-heading: #F2F2F2;
-    --color-text-primary: #E5E5E5;
-    --color-text-secondary: #B3B3B3;
-    --color-text-muted: #8A8F94;
+    --color-text-heading: #F7F0EA;
+    --color-text-primary: #EDE4DD;
+    --color-text-secondary: #BDAFA5;
+    --color-text-muted: #94867C;
 
-    --color-border: #3A2E34;
-    --color-border-strong: #5C3346;
+    --color-border: #3D322B;
+    --color-border-strong: #5C4232;
 
-    --color-button-primary: #F48FB1;
-    --color-button-hover: #F8A5C2;
-    --color-link: #F8A5C2;
-    --color-link-hover: #FCC5D8;
+    --color-button-primary: #F9B98D;
+    --color-button-hover: #FFD2B3;
+    --color-link: #FFC299;
+    --color-link-hover: #FFD9BF;
   }
 }
 
@@ -79,6 +79,10 @@ html, body {
 }
 
 body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
 }

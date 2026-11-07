@@ -46,7 +46,7 @@ function ProjectsSection({ id = 'projects', order = '04' }) {
         <Typography
           id={ `${id}-title` }
           component="h2"
-          sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 800, lineHeight: 1.2, color: 'text.primary' }}
+          sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 700, lineHeight: 1.2, color: 'text.primary' }}
         >
           Projects
         </Typography>

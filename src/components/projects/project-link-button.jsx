@@ -57,7 +57,7 @@ function ProjectLinkButton({ href, label, ariaLabel, startIcon, variant = 'conta
           ? {
             bgcolor: 'primary.main',
             color: 'primary.contrastText',
-            '&:hover': { bgcolor: 'primary.dark' },
+            '&:hover': { bgcolor: 'primary.hover' },
           }
           : {
             borderColor: 'primary.border',

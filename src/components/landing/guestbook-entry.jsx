@@ -71,7 +71,7 @@ function GuestbookEntry({ entry }) {
                 value={ entry.rating }
                 readOnly
                 size="small"
-                sx={{ display: 'flex', mb: 0.25, color: 'primary.main', fontSize: '0.95rem' }}
+                sx={{ display: 'flex', mb: 0.25, color: 'primary.dark', fontSize: '0.95rem' }}
               />
             ) }
             { entry.message }

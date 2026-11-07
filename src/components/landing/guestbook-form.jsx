@@ -55,7 +55,7 @@ const lockAdornment = {
   },
 };
 
-/** 핑크 포커스 색을 적용한 입력칸 스타일 */
+/** 오렌지 포커스 색을 적용한 입력칸 스타일 */
 const fieldSx = {
   '& .MuiOutlinedInput-root': { borderRadius: 3 },
   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'primary.main' },
@@ -153,7 +153,7 @@ function GuestbookForm({ onSubmit }) {
             name="guestbook-rating"
             value={ form.rating }
             onChange={ (event, value) => updateField('rating', value) }
-            sx={{ color: 'primary.main' }}
+            sx={{ color: 'primary.dark' }}
           />
         </Box>
 
@@ -222,7 +222,7 @@ function GuestbookForm({ onSubmit }) {
             bgcolor: 'primary.main',
             color: 'primary.contrastText',
             fontSize: '1rem',
-            '&:hover': { bgcolor: 'primary.dark' },
+            '&:hover': { bgcolor: 'primary.hover' },
           }}
         >
           { isSubmitting ? '보내는 중...' : '방명록 남기기' }

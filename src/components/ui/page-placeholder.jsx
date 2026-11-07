@@ -33,7 +33,7 @@ function PagePlaceholder({ title, description }) {
           component="h1"
           sx={{
             fontSize: { xs: '2rem', md: '3rem' },
-            fontWeight: 800,
+            fontWeight: 700,
             lineHeight: 1.2,
             color: 'text.primary',
             mb: 2,

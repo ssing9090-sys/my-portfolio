@@ -55,7 +55,7 @@ function SectionCard({ id, order, title, description, isHighlighted = false }) {
             component="h2"
             sx={{
               fontSize: isHighlighted ? { xs: '1.75rem', md: '2.5rem' } : { xs: '1.25rem', md: '1.5rem' },
-              fontWeight: 800,
+              fontWeight: 700,
               lineHeight: 1.2,
               color: 'text.primary',
             }}

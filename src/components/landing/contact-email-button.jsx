@@ -8,7 +8,7 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 /**
  * ContactEmailButton 컴포넌트
  *
- * 이메일을 눈에 띄는 큰 핑크 버튼으로 보여준다. 누르면 메일 앱이 열리고, 아래 버튼으로 주소를 복사할 수 있다.
+ * 이메일을 눈에 띄는 큰 오렌지 버튼으로 보여준다. 주소는 화면에 표시하지 않고, 누르면 메일 앱이 열리며 아래 버튼으로 주소를 복사할 수 있다.
  *
  * Props:
  * @param {string} email - 연락받을 이메일 주소 [Required]
@@ -42,10 +42,10 @@ function ContactEmailButton({ email }) {
           bgcolor: 'primary.main',
           color: 'primary.contrastText',
           fontSize: { xs: '1rem', md: '1.15rem' },
-          fontWeight: 800,
+          fontWeight: 700,
           textTransform: 'none',
           wordBreak: 'break-all',
-          '&:hover': { bgcolor: 'primary.dark' },
+          '&:hover': { bgcolor: 'primary.hover' },
         }}
       >
         메일 보내기
@@ -64,7 +64,7 @@ function ContactEmailButton({ email }) {
           '&:hover': { borderColor: 'primary.main', bgcolor: 'primary.light' },
         }}
       >
-        { email }
+        이메일 주소 복사하기
       </Button>
       <Snackbar
         open={ isCopied }

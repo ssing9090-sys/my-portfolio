@@ -94,7 +94,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
           component="h1"
           sx={{
             fontSize: { xs: '2rem', md: '2.75rem' },
-            fontWeight: 800,
+            fontWeight: 700,
             lineHeight: 1.25,
             color: 'text.primary',
             wordBreak: 'keep-all',
@@ -157,7 +157,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
               bgcolor: 'primary.main',
               color: 'primary.contrastText',
               fontSize: '1rem',
-              '&:hover': { bgcolor: 'primary.dark' },
+              '&:hover': { bgcolor: 'primary.hover' },
             }}
           >
             프로젝트 보기
@@ -192,7 +192,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
           height: { xs: 130, md: 160 },
         }}
       >
-        { /* 핑크 테두리 + 흰 여백 링 안에 사진을 둔다 */ }
+        { /* 오렌지 테두리 + 흰 여백 링 안에 사진을 둔다 */ }
         <Box
           sx={{
             width: '100%',
@@ -202,7 +202,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             bgcolor: 'background.paper',
             border: 4,
             borderColor: 'primary.border',
-            boxShadow: '0 12px 32px rgba(214, 58, 122, 0.18)',
+            boxShadow: '0 12px 32px rgba(232, 130, 70, 0.18)',
             animation: 'heroFloat 4s ease-in-out infinite',
           }}
         >

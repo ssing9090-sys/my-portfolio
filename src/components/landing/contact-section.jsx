@@ -24,7 +24,7 @@ const SOCIAL_LINKS = [
 /**
  * ContactSection 컴포넌트
  *
- * Home 페이지의 Contact 섹션. 핑크 톤의 친근하고 따뜻한 분위기로,
+ * Home 페이지의 Contact 섹션. 오렌지 톤의 친근하고 따뜻한 분위기로,
  * [이메일 | SNS] / [방명록 작성 | 방명록 채팅방] 을 좌우 2개씩 배치한다. (모바일은 세로 1열)
  *
  * Props:
@@ -58,7 +58,7 @@ function ContactSection({ id = 'contact', order = '05' }) {
         <Typography
           id={ `${id}-title` }
           component="h2"
-          sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 800, lineHeight: 1.2, color: 'text.primary' }}
+          sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 700, lineHeight: 1.2, color: 'text.primary' }}
         >
           Contact
         </Typography>

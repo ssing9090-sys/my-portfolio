@@ -52,7 +52,7 @@ function Navigation() {
             to="/"
             sx={{
               fontSize: { xs: '1.1rem', md: '1.25rem' },
-              fontWeight: 800,
+              fontWeight: 700,
               color: 'primary.dark',
               textDecoration: 'none',
             }}
