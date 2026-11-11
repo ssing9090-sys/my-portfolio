@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,10 +7,10 @@ import Typography from '@mui/material/Typography';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import profilePhoto from '../../assets/profile.jpg';
+import { usePortfolioData } from '../../hooks/use-portfolio.js';
 
+/** Hero 전용 문구 (이름·사진은 About Me 탭의 기본 정보를 따라가요) */
 const PROFILE = {
-  name: '김현진',
-  photo: profilePhoto,
   role: '하나씩 배우며 성장 중인 웹 개발자 지망생',
   description: 'React 로 따뜻하고 친근한 화면을 만드는 연습을 하고 있어요. 매일 배운 것을 이 포트폴리오에 차곡차곡 기록하고 있습니다.',
 };
@@ -43,6 +44,12 @@ function scrollToSection(sectionId) {
  * <HeroSection id="hero" contactId="contact" />
  */
 function HeroSection({ id = 'hero', contactId = 'contact' }) {
+  const { basicInfo } = usePortfolioData();
+  const [failedPhoto, setFailedPhoto] = useState('');
+  const name = basicInfo.name.trim() || '프론트엔드 개발자';
+  // 첫 화면 사진이라 lazy 로딩하지 않고, 주소가 비었거나 깨지면 기본 사진을 쓴다.
+  const photo = basicInfo.photo && basicInfo.photo !== failedPhoto ? basicInfo.photo : profilePhoto;
+
   return (
     <Box
       id={ id }
@@ -108,7 +115,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
               background: (theme) => `linear-gradient(transparent 62%, ${theme.vars.palette.primary.border} 62%)`,
             }}
           >
-            { PROFILE.name }
+            { name }
           </Box>
           입니다
         </Typography>
@@ -208,8 +215,9 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
         >
           <Box
             component="img"
-            src={ PROFILE.photo }
-            alt={ `${PROFILE.name} 프로필 사진` }
+            src={ photo }
+            alt={ `${name} 프로필 사진` }
+            onError={ () => setFailedPhoto(basicInfo.photo) }
             width={ 160 }
             height={ 160 }
             sx={{
