@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,14 +6,17 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { BASIC_INFO_FIELDS } from '../../data/about-me-data.js';
 import ProfileCard from './profile-card.jsx';
+import ProfilePhotoUpload from './profile-photo-upload.jsx';
 
-/** http(s) 주소인지 확인 (비어 있으면 기본 사진을 쓰니 통과) */
-const isValidPhotoUrl = (value) => value === '' || /^https?:\/\/\S+$/i.test(value.trim());
+/** 올린 사진(data:image) 또는 http(s) 주소인지 확인 (비어 있으면 기본 사진을 쓰니 통과) */
+const isValidPhotoUrl = (value) => value === ''
+  || value.startsWith('data:image/')
+  || /^https?:\/\/\S+$/i.test(value.trim());
 
 /**
  * BasicInfoSection 컴포넌트 (React.memo: 기본 정보가 바뀔 때만 다시 그려져요)
  *
- * 보기 모드: 프로필 카드 / 편집 모드: 입력 폼 + 실시간 미리보기 카드
+ * 보기 모드: 프로필 카드 / 편집 모드: 입력 폼 + 사진 업로드 영역 + 실시간 미리보기 카드
  *
  * Props:
  * @param {object} basicInfo - { name, education, major, experience, photo } [Required]
@@ -25,6 +28,7 @@ const isValidPhotoUrl = (value) => value === '' || /^https?:\/\/\S+$/i.test(valu
  */
 function BasicInfoSection({ basicInfo, isEditing, onChange }) {
   const isPhotoValid = isValidPhotoUrl(basicInfo.photo);
+  const handlePhotoChange = useCallback((value) => onChange('photo', value), [onChange]);
 
   return (
     <Card
@@ -58,16 +62,9 @@ function BasicInfoSection({ basicInfo, isEditing, onChange }) {
                   size="small"
                 />
               )) }
-              <TextField
-                label="프로필 사진 주소"
-                placeholder="https://..."
-                value={ basicInfo.photo }
-                onChange={ (event) => onChange('photo', event.target.value) }
-                error={ !isPhotoValid }
-                helperText={ isPhotoValid ? '비워 두면 기본 사진을 사용해요.' : 'http:// 또는 https:// 로 시작하는 주소를 입력해 주세요.' }
-                size="small"
-                sx={{ gridColumn: '1 / -1' }}
-              />
+              <Box sx={{ gridColumn: '1 / -1' }}>
+                <ProfilePhotoUpload photo={ basicInfo.photo } onChange={ handlePhotoChange } />
+              </Box>
             </Box>
           ) }
           <Box sx={{ maxWidth: isEditing ? 'none' : 360, width: '100%', mx: isEditing ? 0 : 'auto' }}>

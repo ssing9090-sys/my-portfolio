@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { DEFAULT_ABOUT_ME } from '../data/about-me-data.js';
+import { DEFAULT_ABOUT_ME, HOME_SKILL_COUNT_MAX, HOME_SKILL_COUNT_MIN } from '../data/about-me-data.js';
 import { PortfolioActionsContext, PortfolioDataContext, PortfolioStatusContext } from './portfolio-contexts.js';
 
 const STORAGE_KEY = 'portfolio:about-me';
@@ -13,6 +13,9 @@ const isValidSkill = (skill) => isObject(skill)
   && typeof skill.name === 'string'
   && typeof skill.category === 'string'
   && Number.isFinite(skill.level);
+
+/** 홈 탭 스킬 개수를 허용 범위 안으로 맞춘다. */
+const clampHomeSkillCount = (count) => Math.min(HOME_SKILL_COUNT_MAX, Math.max(HOME_SKILL_COUNT_MIN, count));
 
 /** 저장된 값 중 형식이 맞는 것만 기본값 위에 덮어쓴다. (오래되거나 망가진 데이터 대비) */
 function mergeWithDefaults(saved) {
@@ -38,9 +41,19 @@ function mergeWithDefaults(saved) {
     };
   });
 
-  const skills = Array.isArray(saved.skills) ? saved.skills.filter(isValidSkill) : DEFAULT_ABOUT_ME.skills;
+  // showInHome 이 없던 예전 저장본은 '메인 스킬'로 채워 준다.
+  const skills = Array.isArray(saved.skills)
+    ? saved.skills.filter(isValidSkill).map((skill) => ({
+      ...skill,
+      showInHome: typeof skill.showInHome === 'boolean' ? skill.showInHome : true,
+    }))
+    : DEFAULT_ABOUT_ME.skills;
 
-  return { basicInfo, sections, skills };
+  const homeSkillCount = Number.isInteger(saved.homeSkillCount)
+    ? clampHomeSkillCount(saved.homeSkillCount)
+    : DEFAULT_ABOUT_ME.homeSkillCount;
+
+  return { basicInfo, sections, skills, homeSkillCount };
 }
 
 /** 처음 한 번 저장된 데이터를 읽는다. */
@@ -119,8 +132,12 @@ function PortfolioProvider({ children }) {
   const addSkill = useCallback((skill) => {
     setAboutMeData((prev) => ({
       ...prev,
-      skills: [...prev.skills, { ...skill, id: Date.now(), isCustom: true }],
+      skills: [...prev.skills, { showInHome: true, ...skill, id: Date.now(), isCustom: true }],
     }));
+  }, []);
+
+  const updateHomeSkillCount = useCallback((count) => {
+    setAboutMeData((prev) => ({ ...prev, homeSkillCount: clampHomeSkillCount(count) }));
   }, []);
 
   const removeSkill = useCallback((id) => {
@@ -131,8 +148,17 @@ function PortfolioProvider({ children }) {
   const dismissLoadError = useCallback(() => setLoadError(''), []);
 
   const actions = useMemo(
-    () => ({ updateBasicInfo, updateSection, updateSkill, addSkill, removeSkill, resetAboutMe, dismissLoadError }),
-    [updateBasicInfo, updateSection, updateSkill, addSkill, removeSkill, resetAboutMe, dismissLoadError],
+    () => ({
+      updateBasicInfo,
+      updateSection,
+      updateSkill,
+      addSkill,
+      removeSkill,
+      updateHomeSkillCount,
+      resetAboutMe,
+      dismissLoadError,
+    }),
+    [updateBasicInfo, updateSection, updateSkill, addSkill, removeSkill, updateHomeSkillCount, resetAboutMe, dismissLoadError],
   );
 
   const status = useMemo(() => ({ saveStatus, loadError }), [saveStatus, loadError]);

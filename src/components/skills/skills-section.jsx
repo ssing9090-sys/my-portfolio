@@ -4,11 +4,14 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import { HOME_SKILL_COUNT_MAX, HOME_SKILL_COUNT_MIN } from '../../data/about-me-data.js';
 import { SKILL_CATEGORIES } from '../../data/skills-data.js';
 import useSkills from '../../hooks/use-skills.js';
 import { groupByCategory, sortByLevel } from '../../utils/skills.js';
@@ -17,6 +20,12 @@ import SkillCard from './skill-card.jsx';
 
 /** 모바일 1열, 태블릿 2열, 데스크톱 3열 */
 const GRID_SIZE = { xs: 12, sm: 6, md: 4 };
+
+/** '홈에 표시' 개수 선택지: 1 ~ 8 */
+const HOME_COUNT_OPTIONS = Array.from(
+  { length: HOME_SKILL_COUNT_MAX - HOME_SKILL_COUNT_MIN + 1 },
+  (_, index) => HOME_SKILL_COUNT_MIN + index,
+);
 
 /**
  * SkillsSection 컴포넌트
@@ -32,7 +41,16 @@ const GRID_SIZE = { xs: 12, sm: 6, md: 4 };
  * <SkillsSection id="skills" isEditing={ isEditing } />
  */
 function SkillsSection({ id = 'skills', isEditing = false }) {
-  const { skills, availableSkills, addSkill, removeSkill, updateSkill } = useSkills();
+  const {
+    skills,
+    availableSkills,
+    homeSkillCount,
+    homeSkillIds,
+    addSkill,
+    removeSkill,
+    updateSkill,
+    updateHomeSkillCount,
+  } = useSkills();
   const [sortMode, setSortMode] = useState('default');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -42,6 +60,7 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
   );
 
   const handleLevelChange = useCallback((skillId, level) => updateSkill(skillId, { level }), [updateSkill]);
+  const handleToggleMain = useCallback((skillId, showInHome) => updateSkill(skillId, { showInHome }), [updateSkill]);
 
   return (
     <Card
@@ -80,7 +99,7 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
             </Typography>
             <Typography sx={{ mt: 0.5, color: 'text.secondary', wordBreak: 'keep-all' }}>
               { isEditing
-                ? '슬라이더로 숙련도를 바꾸면 홈 탭의 주요 스킬에 바로 반영돼요.'
+                ? '별(★)을 켠 메인 스킬 중 숙련도가 높은 순으로 홈 탭에 보여줘요.'
                 : '카드에 마우스를 올리면 어떻게 써 왔는지 볼 수 있어요.' }
             </Typography>
           </Box>
@@ -95,6 +114,20 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
               <ToggleButton value="default">기본 순</ToggleButton>
               <ToggleButton value="level">숙련도 순</ToggleButton>
             </ToggleButtonGroup>
+            { isEditing && (
+              <TextField
+                select
+                size="small"
+                label="홈에 표시"
+                value={ homeSkillCount }
+                onChange={ (event) => updateHomeSkillCount(Number(event.target.value)) }
+                sx={{ minWidth: 112 }}
+              >
+                { HOME_COUNT_OPTIONS.map((count) => (
+                  <MenuItem key={ count } value={ count }>상위 { count }개</MenuItem>
+                )) }
+              </TextField>
+            ) }
             { isEditing && (
               <Button
                 variant="contained"
@@ -135,8 +168,10 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
                     <Grid size={ GRID_SIZE } key={ skill.id }>
                       <SkillCard
                         skill={ skill }
+                        isInHome={ homeSkillIds.has(skill.id) }
                         onRemove={ isEditing && skill.isCustom ? removeSkill : undefined }
                         onLevelChange={ isEditing ? handleLevelChange : undefined }
+                        onToggleMain={ isEditing ? handleToggleMain : undefined }
                       />
                     </Grid>
                   )) }

@@ -47,6 +47,7 @@ export const skillsData = [
     name: 'HTML',
     level: 80,
     category: 'Frontend',
+    showInHome: true,
     description: '시맨틱 마크업과 접근성 속성으로 탄탄한 구조를 만들어요.',
   },
   {
@@ -55,6 +56,7 @@ export const skillsData = [
     name: 'CSS',
     level: 75,
     category: 'Frontend',
+    showInHome: true,
     description: '디자인 토큰·반응형·애니메이션으로 시안의 느낌을 그대로 옮겨요.',
   },
   {
@@ -63,6 +65,7 @@ export const skillsData = [
     name: 'JavaScript',
     level: 70,
     category: 'Frontend',
+    showInHome: true,
     description: 'DOM 조작과 비동기 처리로 화면에 움직임과 데이터를 더해요.',
   },
   {
@@ -71,6 +74,7 @@ export const skillsData = [
     name: 'React',
     level: 60,
     category: 'Framework',
+    showInHome: true,
     description: '컴포넌트를 나눠 재사용하고, 상태를 관리하며 화면을 구성해요.',
   },
   {
@@ -79,6 +83,7 @@ export const skillsData = [
     name: 'Figma',
     level: 65,
     category: 'Design',
+    showInHome: true,
     description: '시안의 의도를 읽고, 디자이너와 같은 파일을 보며 소통해요.',
   },
 ];

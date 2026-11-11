@@ -1,7 +1,11 @@
 import { skillsData } from './skills-data.js';
 
-/** 홈 탭에 보여줄 주요 스킬 개수 */
+/** 홈 탭에 보여줄 주요 스킬 개수 (기본값) */
 export const HOME_SKILL_COUNT = 4;
+
+/** 홈 탭 스킬 개수로 고를 수 있는 범위 (홈 목록이 4열이라 최대 8개 = 2줄) */
+export const HOME_SKILL_COUNT_MIN = 1;
+export const HOME_SKILL_COUNT_MAX = 8;
 
 /** 홈 탭 요약에 쓰는 최대 글자 수 */
 export const SUMMARY_LENGTH = 100;
@@ -20,28 +24,29 @@ export const DEFAULT_ABOUT_ME = {
     name: '김현진',
     education: '',
     major: '',
-    experience: '',
+    experience: '신입',
     photo: '',
   },
   sections: [
     {
       id: 'dev-story',
       title: '나의 개발 스토리',
-      content: '다양한 디자인을 보면서, 그 좋은 경험을 다른 사람과 함께 나누고 싶었어요. 디자인을 직접 만지고 느낄 수 있는 화면으로 옮기는 방법이 코드라는 걸 알게 되면서 개발을 시작했어요.',
+      content: '좋은 디자인을 보는 즐거움에서, 직접 구현하는 즐거움으로.',
       showInHome: true,
     },
     {
       id: 'philosophy',
       title: '개발 철학',
-      content: '디자인의 의도를 존중하고, 사용자의 입장에서 생각해요. 디테일까지 완성도 있게 만들고, 디자이너와 같은 언어로 소통하며, 만든 것도 꾸준히 다시 보며 개선해요.',
+      content: '좋은 코드는 화면을 만들고, 좋은 경험은 사람의 마음에 남습니다.',
       showInHome: true,
     },
     {
       id: 'personal',
       title: '개인적인 이야기',
-      content: '',
-      showInHome: false,
+      content: '일상에서 발견한 작은 영감을 새로운 아이디어로 연결합니다.',
+      showInHome: true,
     },
   ],
   skills: skillsData,
+  homeSkillCount: HOME_SKILL_COUNT,
 };

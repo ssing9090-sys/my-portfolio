@@ -14,6 +14,17 @@ export const sortByLevel = (skills) => [...skills].sort((a, b) => b.level - a.le
 export const getTopSkills = (skills, count) => sortByLevel(skills).slice(0, Math.max(0, count));
 
 /**
+ * 홈 탭에 보여줄 스킬: '메인 스킬'(showInHome)로 표시한 것 중 숙련도 상위 N개
+ * (showInHome 이 없는 예전 데이터는 메인 스킬로 본다)
+ * @param {Array} skills - 스킬 목록
+ * @param {number} count - 가져올 개수
+ */
+export const getHomeSkills = (skills, count) => getTopSkills(
+  skills.filter((skill) => skill.showInHome !== false),
+  count,
+);
+
+/**
  * CATEGORY_ORDER 순서대로 카테고리별 묶음을 만든다. (빈 카테고리는 제외)
  * @param {Array} skills - 스킬 목록 (넘겨준 순서가 묶음 안에서도 유지돼요)
  * @returns {Array<{ category: string, skills: Array }>}

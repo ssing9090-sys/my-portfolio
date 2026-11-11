@@ -4,8 +4,8 @@ import {
   PortfolioDataContext,
   PortfolioStatusContext,
 } from '../contexts/portfolio-contexts.js';
-import { HOME_SKILL_COUNT, SUMMARY_LENGTH } from '../data/about-me-data.js';
-import { getTopSkills } from '../utils/skills.js';
+import { SUMMARY_LENGTH } from '../data/about-me-data.js';
+import { getHomeSkills } from '../utils/skills.js';
 import { summarize } from '../utils/summarize.js';
 
 /** Provider 밖에서 쓰면 바로 알 수 있도록 에러를 던진다. */
@@ -50,7 +50,7 @@ export const usePortfolioStatus = () => useRequiredContext(PortfolioStatusContex
  * const { content, skills, basicInfo } = useHomeData();
  */
 export function useHomeData() {
-  const { basicInfo, sections, skills } = usePortfolioData();
+  const { basicInfo, sections, skills, homeSkillCount } = usePortfolioData();
 
   const content = useMemo(
     () => sections
@@ -59,7 +59,7 @@ export function useHomeData() {
     [sections],
   );
 
-  const topSkills = useMemo(() => getTopSkills(skills, HOME_SKILL_COUNT), [skills]);
+  const topSkills = useMemo(() => getHomeSkills(skills, homeSkillCount), [skills, homeSkillCount]);
 
   return { content, skills: topSkills, basicInfo };
 }

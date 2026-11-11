@@ -10,14 +10,14 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import BasicInfoSection from '../components/about/basic-info-section.jsx';
 import SaveStatus from '../components/about/save-status.jsx';
-import StorySectionCard from '../components/about/story-section-card.jsx';
+import StoryTabs from '../components/about/story-tabs.jsx';
 import SkillsSection from '../components/skills/skills-section.jsx';
 import { usePortfolioActions, usePortfolioData, usePortfolioStatus } from '../hooks/use-portfolio.js';
 
 /**
  * AboutPage 컴포넌트
  *
- * 기본 정보 · 소개 글 3개 · 스킬로 구성된 About Me 페이지.
+ * 기본 정보 카드 · 소개 글 3개(탭) · 스킬로 구성된 About Me 페이지.
  * '편집' 버튼으로 편집 모드를 켜면 내용을 바로 고칠 수 있고, 홈 탭에 즉시 반영된다.
  *
  * Props: 없음
@@ -27,6 +27,8 @@ import { usePortfolioActions, usePortfolioData, usePortfolioStatus } from '../ho
  */
 function AboutPage() {
   const [isEditing, setIsEditing] = useState(false);
+  // 선택한 탭은 여기서 들고 있어야 편집 모드를 켜고 꺼도 그대로 유지돼요.
+  const [activeSectionId, setActiveSectionId] = useState('dev-story');
   const { basicInfo, sections } = usePortfolioData();
   const { updateBasicInfo, updateSection, resetAboutMe, dismissLoadError } = usePortfolioActions();
   const { saveStatus, loadError } = usePortfolioStatus();
@@ -87,9 +89,13 @@ function AboutPage() {
       <Fade in key={ isEditing ? 'edit' : 'view' } timeout={ 300 }>
         <Stack spacing={{ xs: 2, md: 3 }}>
           <BasicInfoSection basicInfo={ basicInfo } isEditing={ isEditing } onChange={ updateBasicInfo } />
-          { sections.map((section) => (
-            <StorySectionCard key={ section.id } section={ section } isEditing={ isEditing } onChange={ updateSection } />
-          )) }
+          <StoryTabs
+            sections={ sections }
+            activeId={ activeSectionId }
+            onTabChange={ setActiveSectionId }
+            isEditing={ isEditing }
+            onChange={ updateSection }
+          />
           <SkillsSection id="skills" isEditing={ isEditing } />
         </Stack>
       </Fade>
