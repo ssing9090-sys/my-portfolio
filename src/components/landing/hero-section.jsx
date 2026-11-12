@@ -218,6 +218,9 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             src={ photo }
             alt={ `${name} 프로필 사진` }
             onError={ () => setFailedPhoto(basicInfo.photo) }
+            // 첫 화면의 가장 큰 이미지라 lazy 대신 먼저 불러온다.
+            fetchPriority="high"
+            decoding="async"
             width={ 160 }
             height={ 160 }
             sx={{

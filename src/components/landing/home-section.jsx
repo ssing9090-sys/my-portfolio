@@ -16,17 +16,19 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
  * @param {string} title - 섹션 제목 [Required]
  * @param {string} description - 제목 아래 한 줄 설명 [Optional]
  * @param {object} action - 하단 버튼 { label, to, state } [Optional]
+ * @param {boolean} isBusy - 내용을 불러오는 중인지 (스크린 리더에 aria-busy 로 알림) [Optional, 기본값: false]
  * @param {React.ReactNode} children - 섹션 내용 [Required]
  *
  * Example usage:
  * <HomeSection id="skills" order="03" title="Skills" action={{ label: '전체 스킬 보기', to: '/about' }}>...</HomeSection>
  */
-function HomeSection({ id, order, title, description, action, children }) {
+function HomeSection({ id, order, title, description, action, isBusy = false, children }) {
   return (
     <Box
       id={ id }
       component="section"
       aria-labelledby={ `${id}-title` }
+      aria-busy={ isBusy }
       sx={{
         borderRadius: 3,
         border: 1,
@@ -63,6 +65,8 @@ function HomeSection({ id, order, title, description, action, children }) {
             component={ Link }
             to={ action.to }
             state={ action.state }
+            // '더 알아보기, About Me' 처럼 어느 섹션 버튼인지 함께 읽어줘요.
+            aria-describedby={ `${id}-title` }
             variant="outlined"
             endIcon={ <ArrowForwardRoundedIcon /> }
             sx={{

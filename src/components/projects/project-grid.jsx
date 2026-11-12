@@ -17,11 +17,12 @@ const SKELETON_KEYS = [1, 2, 3];
  * @param {Array} projects - 프로젝트 목록 [Required]
  * @param {boolean} isLoading - 로딩 중 여부 [Optional, 기본값: false]
  * @param {string} error - 오류 메시지 [Optional, 기본값: '']
+ * @param {string} headingComponent - 카드 제목 태그 [Optional, 기본값: 'h2']
  *
  * Example usage:
  * <ProjectGrid projects={ projects } isLoading={ isLoading } error={ error } />
  */
-function ProjectGrid({ projects, isLoading = false, error = '' }) {
+function ProjectGrid({ projects, isLoading = false, error = '', headingComponent = 'h2' }) {
   if (error) {
     return <Alert severity="error">{ error }</Alert>;
   }
@@ -44,7 +45,7 @@ function ProjectGrid({ projects, isLoading = false, error = '' }) {
         ))
         : projects.map((project) => (
           <Grid size={ GRID_SIZE } key={ project.id }>
-            <ProjectCard project={ project } />
+            <ProjectCard project={ project } headingComponent={ headingComponent } />
           </Grid>
         )) }
     </Grid>

@@ -51,11 +51,12 @@ function ProjectsSection({ id = 'projects', order = '04' }) {
           Projects
         </Typography>
       </Box>
-      <ProjectGrid projects={ projects.slice(0, PREVIEW_COUNT) } isLoading={ isLoading } error={ error } />
+      <ProjectGrid projects={ projects.slice(0, PREVIEW_COUNT) } isLoading={ isLoading } error={ error } headingComponent="h3" />
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 2, md: 3 } }}>
         <Button
           component={ Link }
           to="/projects"
+          aria-describedby={ `${id}-title` }
           variant="outlined"
           endIcon={ <ArrowForwardRoundedIcon /> }
           sx={{

@@ -64,7 +64,9 @@ function toSaveErrorMessage(error) {
  * <PortfolioProvider><App /></PortfolioProvider>
  */
 function PortfolioProvider({ children }) {
-  const [aboutMeData, setAboutMeData] = useState(() => readStorage(CACHE_KEY) ?? DEFAULT_ABOUT_ME);
+  /** 지난 방문 때 받아 둔 내용 (없으면 첫 방문이라 기본값을 임시로 보여줘요) */
+  const [initialCache] = useState(() => readStorage(CACHE_KEY));
+  const [aboutMeData, setAboutMeData] = useState(initialCache ?? DEFAULT_ABOUT_ME);
   const [isLoading, setIsLoading] = useState(Boolean(supabase));
   const [loadError, setLoadError] = useState(supabase ? '' : CONFIG_ERROR);
   const [saveStatus, setSaveStatus] = useState('idle');
@@ -268,11 +270,13 @@ function PortfolioProvider({ children }) {
       saveError,
       loadError,
       isLoading,
+      // 서버 응답도 캐시도 없어서 기본값을 임시로 들고 있는 상태 (이때는 스켈레톤을 보여줘요)
+      isPlaceholder: isLoading && !initialCache,
       isLoggedIn: Boolean(userId),
       isOwner,
       hasLegacyData: Boolean(legacyData),
     }),
-    [saveStatus, saveError, loadError, isLoading, userId, isOwner, legacyData],
+    [saveStatus, saveError, loadError, isLoading, initialCache, userId, isOwner, legacyData],
   );
 
   return (

@@ -43,7 +43,9 @@ function AboutPage() {
     discardLegacyData,
     signOut,
   } = usePortfolioActions();
-  const { saveStatus, saveError, loadError, isLoading, isLoggedIn, isOwner, hasLegacyData } = usePortfolioStatus();
+  const {
+    saveStatus, saveError, loadError, isLoading, isPlaceholder, isLoggedIn, isOwner, hasLegacyData,
+  } = usePortfolioStatus();
 
   // 주인 계정일 때만 편집 모드 (로그아웃하면 자동으로 보기 모드)
   const isEditing = isEditingRequested && isOwner;
@@ -60,7 +62,7 @@ function AboutPage() {
   };
 
   return (
-    <Stack spacing={{ xs: 2, md: 3 }}>
+    <Stack spacing={{ xs: 2, md: 3 }} aria-busy={ isPlaceholder }>
       { loadError && <Alert severity="warning" onClose={ dismissLoadError }>{ loadError }</Alert> }
       { saveStatus === 'error' && <Alert severity="error">{ saveError }</Alert> }
       { isOwner && hasLegacyData && (

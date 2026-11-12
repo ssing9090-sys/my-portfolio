@@ -51,6 +51,26 @@ const theme = createTheme({
     borderRadius: 12,
   },
   spacing: 8,
+  components: {
+    // 키보드로 이동할 때만(마우스 클릭 제외) 뚜렷한 포커스 테두리를 보여준다.
+    // primary.dark 는 라이트·다크 모드 모두 배경과 대비가 충분한 색이에요.
+    MuiButtonBase: {
+      styleOverrides: {
+        root: ({ theme: currentTheme }) => ({
+          '&.Mui-focusVisible': {
+            outline: `3px solid ${(currentTheme.vars ?? currentTheme).palette.primary.dark}`,
+            outlineOffset: 2,
+          },
+        }),
+      },
+    },
+    // 탭은 스크롤 영역 안에 있어서 바깥 테두리가 잘리므로 안쪽으로 그린다.
+    MuiTab: {
+      styleOverrides: {
+        root: { '&.Mui-focusVisible': { outlineOffset: -3 } },
+      },
+    },
+  },
 });
 
 export default theme;

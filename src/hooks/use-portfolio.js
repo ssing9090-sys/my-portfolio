@@ -35,7 +35,7 @@ export const usePortfolioActions = () => useRequiredContext(PortfolioActionsCont
 
 /**
  * 저장·로그인 상태를 읽는다.
- * { saveStatus: 'idle' | 'saving' | 'saved' | 'error', saveError, loadError, isLoading, isLoggedIn, isOwner, hasLegacyData }
+ * { saveStatus: 'idle' | 'saving' | 'saved' | 'error', saveError, loadError, isLoading, isPlaceholder, isLoggedIn, isOwner, hasLegacyData }
  *
  * Example usage:
  * const { saveStatus } = usePortfolioStatus();

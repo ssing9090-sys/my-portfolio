@@ -20,11 +20,12 @@ const HOVER_SCALE = 1.02;
  *
  * Props:
  * @param {object} project - projects 테이블 한 행 [Required]
+ * @param {string} headingComponent - 제목 태그 (홈 탭처럼 h2 섹션 안에서는 h3) [Optional, 기본값: 'h2']
  *
  * Example usage:
  * <ProjectCard project={ project } />
  */
-function ProjectCard({ project }) {
+function ProjectCard({ project, headingComponent = 'h2' }) {
   const { title, description, tech_stack: techStack, detail_url: detailUrl, thumbnail_url: thumbnailUrl } = project;
   const githubUrl = toGithubUrl(detailUrl);
 
@@ -68,7 +69,7 @@ function ProjectCard({ project }) {
         }}
       >
         <Typography
-          component="h2"
+          component={ headingComponent }
           sx={{ fontSize: { xs: '1.1rem', md: '1.05rem' }, fontWeight: 700, lineHeight: 1.4, color: 'text.primary' }}
         >
           { title }

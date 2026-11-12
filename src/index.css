@@ -87,6 +87,12 @@ body {
   color: var(--color-text-primary);
 }
 
+/* 키보드 포커스 표시 (MUI 버튼류는 theme.js 에서 따로 처리) */
+:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
 /* Root 앱 컨테이너 설정 */
 #root {
   width: 100%;
