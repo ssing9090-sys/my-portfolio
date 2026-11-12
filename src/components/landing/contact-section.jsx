@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { CONTACT_EMAIL, GITHUB_URL, INSTAGRAM_URL } from '../../data/profile-links.js';
 import useGuestbook from '../../hooks/use-guestbook.js';
 import { INK, SERIF_FONT, VIVID } from '../../theme.js';
 import ContactEmailButton from './contact-email-button.jsx';
@@ -12,10 +13,6 @@ import GuestbookList from './guestbook-list.jsx';
 import { DISPLAY_TITLE_SX, SECTION_INNER_SX } from './landing-styles.js';
 import MarqueeBand from './marquee-band.jsx';
 import SocialLinks from './social-links.jsx';
-
-const CONTACT_EMAIL = 'ssing9090@gmail.com';
-const INSTAGRAM_URL = 'https://www.instagram.com/11.25.hj';
-const GITHUB_URL = 'https://github.com/ssing9090-sys';
 
 const SOCIAL_LINKS = [
   { id: 'instagram', icon: <InstagramIcon />, label: 'Instagram', href: INSTAGRAM_URL },
