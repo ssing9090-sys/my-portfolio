@@ -111,7 +111,8 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             m: 0,
             textAlign: 'center',
             color: '#FFFFFF',
-            lineHeight: 0.95,
+            // 모바일은 두 줄로 쌓여서 줄 간격을 조금 띄워요.
+            lineHeight: { xs: 1.08, tablet: 0.95 },
             letterSpacing: '-0.03em',
             textShadow: '0 2px 24px rgba(18, 18, 18, 0.08)',
             wordBreak: 'keep-all',
@@ -122,7 +123,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             component="span"
             sx={{
               fontFamily: SERIF_FONT,
-              fontSize: { xs: 'clamp(2.5rem, 12vw, 4rem)', tablet: 'clamp(3.25rem, 7.5vw, 5.5rem)', lg: 'clamp(5rem, 7.5vw, 7.5rem)' },
+              fontSize: { xs: 'clamp(2rem, 9.5vw, 2.75rem)', tablet: 'clamp(3.25rem, 7.5vw, 5.5rem)', lg: 'clamp(5rem, 7.5vw, 7.5rem)' },
               mr: { tablet: 2, lg: 3 },
             }}
           >
@@ -135,7 +136,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
             component="span"
             sx={{
               fontWeight: 900,
-              fontSize: { xs: 'clamp(3rem, 15vw, 5rem)', tablet: 'clamp(3.75rem, 8.5vw, 6.25rem)', lg: 'clamp(5.75rem, 8.5vw, 8.5rem)' },
+              fontSize: { xs: 'clamp(2.5rem, 12vw, 3.25rem)', tablet: 'clamp(3.75rem, 8.5vw, 6.25rem)', lg: 'clamp(5.75rem, 8.5vw, 8.5rem)' },
             }}
           >
             { name }
@@ -144,11 +145,11 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
 
         <Box
           sx={{
-            mt: { xs: 3, tablet: 2 },
+            mt: { xs: 2.5, tablet: 2 },
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', tablet: 'minmax(0, 1fr) auto minmax(0, 1fr)' },
             alignItems: 'end',
-            gap: { xs: 4, tablet: 2, lg: 3 },
+            gap: { xs: 3, tablet: 2, lg: 3 },
           }}
         >
           { /* 왼쪽 아래: 소개 */ }
@@ -219,7 +220,7 @@ function HeroSection({ id = 'hero', contactId = 'contact' }) {
               position: 'relative',
               order: { xs: 1, tablet: 2 },
               justifySelf: 'center',
-              width: { xs: 'min(72vw, 300px)', tablet: 'clamp(220px, 28vw, 300px)', lg: 'clamp(300px, 26vw, 380px)' },
+              width: { xs: 'min(62vw, 260px)', tablet: 'clamp(220px, 28vw, 300px)', lg: 'clamp(300px, 26vw, 380px)' },
               aspectRatio: '4 / 5',
               borderRadius: { xs: '999px 999px 32px 32px', tablet: '999px 999px 0 0' },
               overflow: 'hidden',
