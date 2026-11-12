@@ -63,3 +63,47 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* ── 스크롤바: 크림 트랙 위 검정 알약, 마우스를 올리면 초록 ── */
+/* 크롬·엣지·사파리 */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border: 3px solid var(--color-cream);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green);
+}
+
+/* 파이어폭스 (모양은 못 바꾸고 색만 바꿀 수 있어요) */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--color-ink) var(--color-cream);
+  }
+}
+
+/* 글자를 드래그해 고르면 형광 초록 */
+::selection {
+  background: var(--color-green);
+  color: var(--color-ink);
+}
+
+/* ── 커스텀 커서(custom-cursor.jsx)가 켜졌을 때만 기본 화살표를 숨겨요 ── */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor :is(input, textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}

@@ -85,7 +85,11 @@ function SkillsPreviewSection({ id = 'skills' }) {
           // 카드가 화면에 다 들어오면 가운데 정렬 (넘칠 때는 왼쪽부터 보이도록 justifyContent 대신 auto 여백)
           '& > li:first-of-type': { ml: 'auto' },
           '& > li:last-of-type': { mr: 'auto' },
-          scrollbarWidth: 'thin',
+          // 가로 스크롤바도 사이트 스크롤바(index.css)처럼 검정 알약, 대신 더 얇게
+          '&::-webkit-scrollbar': { height: 10 },
+          '&::-webkit-scrollbar-track': { background: 'transparent' },
+          '&::-webkit-scrollbar-thumb': { borderWidth: 2 },
+          '@supports not selector(::-webkit-scrollbar)': { scrollbarWidth: 'thin' },
           '& > li': { scrollSnapAlign: 'start' },
           '&:focus-visible': { outlineOffset: -4, boxShadow: 'none' },
         }}

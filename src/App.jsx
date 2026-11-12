@@ -2,9 +2,11 @@ import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-d
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import CustomCursor from './components/common/custom-cursor.jsx';
 import ErrorBoundary from './components/common/error-boundary.jsx';
 import Footer from './components/common/footer.jsx';
 import Navigation from './components/common/navigation.jsx';
+import ScrollProgressButton from './components/common/scroll-progress-button.jsx';
 import useRouteScroll from './hooks/use-route-scroll.js';
 import AboutPage from './pages/about-page.jsx';
 import HomePage from './pages/home-page.jsx';
@@ -89,6 +91,8 @@ function App() {
         <AnimatedRoutes />
       </Box>
       <Footer />
+      <ScrollProgressButton />
+      <CustomCursor />
     </HashRouter>
   );
 }
