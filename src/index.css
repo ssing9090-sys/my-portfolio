@@ -1,68 +1,29 @@
 /**
- * 사이트 전체 컬러 팔레트 (메인 컬러: 오렌지)
- * theme.js 의 palette 값과 동일하게 유지
+ * 사이트 전체 디자인 토큰 — '볼드 팝' 스타일
+ * theme.js 의 값과 동일하게 유지
  */
 :root {
-  /* Primary Colors */
-  --color-primary: #F7A66F;
-  --color-primary-light: #FFEFE3;
-  --color-primary-dark: #A8500F;
-  --color-primary-border: #FAD4B8;
+  /* 기본 */
+  --color-ink: #121212;
+  --color-cream: #FFFDF0;
+  --color-white: #FFFFFF;
 
-  /* Secondary Colors */
-  --color-secondary: #3D2E26;
-  --color-accent: #D32F2F;
+  /* 원색 포인트 */
+  --color-green: #19E05A;
+  --color-blue: #0A6CFF;
+  --color-pink: #FF3B7F;
+  --color-yellow: #FFD23F;
+  --color-coral: #FF6A6F;
+  --color-purple: #8B5CF6;
+  --color-sky: #DDF4FF;
 
-  /* Background Colors */
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FFF9F4;
-  --color-bg-tertiary: #FFF3E9;
+  /* 글자 */
+  --color-text-primary: #121212;
+  --color-text-secondary: #55534C;
+  --color-text-muted: #8A877D;
 
-  /* Text Colors */
-  --color-text-heading: #2E221B;
-  --color-text-primary: #3D2E26;
-  --color-text-secondary: #6E5A4E;
-  --color-text-muted: #8C7A6E;
-
-  /* Border Colors */
-  --color-border: #F5E6DA;
-  --color-border-strong: #FAD4B8;
-
-  /* Interactive Colors */
-  --color-button-primary: #F7A66F;
-  --color-button-hover: #F28F52;
-  --color-link: #A8500F;
-  --color-link-hover: #8A4009;
-}
-
-/* 다크모드 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #F9B98D;
-    --color-primary-light: #33261E;
-    --color-primary-dark: #FFC299;
-    --color-primary-border: #5C4232;
-
-    --color-secondary: #EDE4DD;
-    --color-accent: #FF6B6B;
-
-    --color-bg-primary: #1C1917;
-    --color-bg-secondary: #24201D;
-    --color-bg-tertiary: #2E2824;
-
-    --color-text-heading: #F7F0EA;
-    --color-text-primary: #EDE4DD;
-    --color-text-secondary: #BDAFA5;
-    --color-text-muted: #94867C;
-
-    --color-border: #3D322B;
-    --color-border-strong: #5C4232;
-
-    --color-button-primary: #F9B98D;
-    --color-button-hover: #FFD2B3;
-    --color-link: #FFC299;
-    --color-link-hover: #FFD9BF;
-  }
+  /* 테두리 */
+  --color-border: #E8E6DC;
 }
 
 /* CSS 초기화 */
@@ -70,7 +31,6 @@
   box-sizing: border-box;
 }
 
-/* HTML, Body 초기화 */
 html, body {
   margin: 0;
   padding: 0;
@@ -79,18 +39,21 @@ html, body {
 }
 
 body {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  letter-spacing: -0.012em;
+  font-family: "Poppins", "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-cream);
   color: var(--color-text-primary);
+  /* 풀폭 섹션의 가로 넘침 방지 */
+  overflow-x: clip;
 }
 
-/* 키보드 포커스 표시 (MUI 버튼류는 theme.js 에서 따로 처리) */
+/* 키보드 포커스 표시: 검정 테두리 + 흰 여백 (어떤 배경 위에서도 보여요. MUI 버튼류는 theme.js) */
 :focus-visible {
-  outline: 3px solid var(--color-primary-dark);
+  outline: 3px solid var(--color-ink);
   outline-offset: 2px;
+  box-shadow: 0 0 0 7px var(--color-white);
 }
 
 /* Root 앱 컨테이너 설정 */

@@ -6,7 +6,7 @@ import GuestbookEntry from './guestbook-entry.jsx';
 /**
  * GuestbookList 컴포넌트
  *
- * 방명록 목록을 카카오톡 채팅방처럼 오렌지 배경 위에 최신순으로 나열한다.
+ * 방명록 목록을 카카오톡 채팅방처럼 옅은 배경 위에 최신순으로 나열한다.
  * 로딩·오류·빈 상태를 함께 처리하고, 길어지면 내부 스크롤된다.
  *
  * Props:

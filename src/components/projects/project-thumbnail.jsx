@@ -19,7 +19,7 @@ function ProjectThumbnail({ src, alt }) {
   const [status, setStatus] = useState('loading');
 
   return (
-    <Box sx={{ position: 'relative', aspectRatio: '16 / 9', overflow: 'hidden', bgcolor: 'primary.light' }}>
+    <Box sx={{ position: 'relative', aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: '20px', bgcolor: 'primary.light' }}>
       { status === 'loading' && (
         <Skeleton
           variant="rectangular"

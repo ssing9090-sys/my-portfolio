@@ -55,7 +55,7 @@ const lockAdornment = {
   },
 };
 
-/** 오렌지 포커스 색을 적용한 입력칸 스타일 */
+/** 포커스 색을 테마 기본색(검정)으로 맞춘 입력칸 스타일 */
 const fieldSx = {
   '& .MuiOutlinedInput-root': { borderRadius: 3 },
   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'primary.main' },

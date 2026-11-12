@@ -14,8 +14,8 @@ import Skeleton from '@mui/material/Skeleton';
  */
 function ProjectCardSkeleton() {
   return (
-    <Card elevation={ 0 } aria-hidden="true" sx={{ border: 1, borderColor: 'primary.border' }}>
-      <Skeleton variant="rectangular" sx={{ width: '100%', height: 'auto', aspectRatio: '16 / 9' }} />
+    <Card elevation={ 0 } aria-hidden="true" sx={{ borderRadius: '32px', p: 1.25 }}>
+      <Skeleton variant="rectangular" sx={{ width: '100%', height: 'auto', aspectRatio: '16 / 9', borderRadius: '20px' }} />
       <Box sx={{ p: 2 }}>
         <Skeleton variant="text" sx={{ fontSize: '1.1rem' }} />
         <Skeleton variant="text" width="70%" />

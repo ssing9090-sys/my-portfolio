@@ -15,11 +15,12 @@ const LOADING_DURATION = 900;
  * @param {string} ariaLabel - 스크린리더용 설명 [Required]
  * @param {node} startIcon - 버튼 앞 아이콘 [Required]
  * @param {string} variant - MUI Button variant [Optional, 기본값: 'contained']
+ * @param {boolean} onColor - 원색·검정 카드 위에 놓이는지 (흰색 버튼으로 바뀜) [Optional, 기본값: false]
  *
  * Example usage:
  * <ProjectLinkButton href={ url } label="Live Demo" ariaLabel="데모 열기" startIcon={ <LaunchIcon /> } />
  */
-function ProjectLinkButton({ href, label, ariaLabel, startIcon, variant = 'contained' }) {
+function ProjectLinkButton({ href, label, ariaLabel, startIcon, variant = 'contained', onColor = false }) {
   const [isLoading, setIsLoading] = useState(false);
   const timerRef = useRef(null);
 
@@ -32,6 +33,15 @@ function ProjectLinkButton({ href, label, ariaLabel, startIcon, variant = 'conta
   };
 
   const isContained = variant === 'contained';
+
+  /** 밝은 배경용 / 원색 배경용 색 조합 */
+  const colorSx = onColor
+    ? (isContained
+      ? { bgcolor: '#FFFFFF', color: '#121212', '&:hover': { bgcolor: '#FFFFFF', opacity: 0.88 } }
+      : { borderColor: 'rgba(255, 255, 255, 0.7)', color: '#FFFFFF', '&:hover': { borderColor: '#FFFFFF', bgcolor: 'rgba(255, 255, 255, 0.12)' } })
+    : (isContained
+      ? { bgcolor: 'primary.main', color: 'primary.contrastText', '&:hover': { bgcolor: 'primary.hover' } }
+      : { borderColor: 'primary.border', color: 'primary.dark', '&:hover': { borderColor: 'primary.main', bgcolor: 'primary.light' } });
 
   return (
     <Button
@@ -53,17 +63,7 @@ function ProjectLinkButton({ href, label, ariaLabel, startIcon, variant = 'conta
         whiteSpace: 'nowrap',
         textTransform: 'none',
         fontWeight: 700,
-        ...(isContained
-          ? {
-            bgcolor: 'primary.main',
-            color: 'primary.contrastText',
-            '&:hover': { bgcolor: 'primary.hover' },
-          }
-          : {
-            borderColor: 'primary.border',
-            color: 'primary.dark',
-            '&:hover': { borderColor: 'primary.main', bgcolor: 'primary.light' },
-          }),
+        ...colorSx,
       }}
     >
       { label }

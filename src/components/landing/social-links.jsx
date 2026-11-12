@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 /**
  * SocialLinks 컴포넌트
  *
- * SNS 링크를 동그란 오렌지 아이콘 버튼으로 나란히 보여주고, 버튼 아래에 이름을 붙인다.
+ * SNS 링크를 동그란 아이콘 버튼으로 나란히 보여주고, 버튼 아래에 이름을 붙인다.
  *
  * Props:
  * @param {Array<{ id: string, icon: element, label: string, href: string }>} links - SNS 링크 목록 [Required]

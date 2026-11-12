@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 /**
  * ContactPanel 컴포넌트
  *
- * Contact 섹션 2x2 배치의 한 칸. 오렌지 테두리 카드 + 아이콘 제목으로 구성한다.
+ * Contact 섹션 2x2 배치의 한 칸. 흰 둥근 카드 + 아이콘 제목으로 구성한다.
  *
  * Props:
  * @param {string} emoji - 제목 앞 아이콘 이모지 [Required]
@@ -25,16 +25,12 @@ function ContactPanel({ emoji, title, description, children }) {
         flexDirection: 'column',
         minWidth: 0,
         p: { xs: 2, md: 3 },
-        borderRadius: 4,
+        borderRadius: '28px',
         bgcolor: 'background.paper',
-        border: 1,
-        borderColor: 'primary.border',
-        boxShadow: '0 4px 16px rgba(232, 130, 70, 0.08)',
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'transform 0.2s',
         '@media (hover: hover)': {
           '&:hover': {
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 24px rgba(232, 130, 70, 0.14)',
           },
         },
       }}
@@ -55,7 +51,7 @@ function ContactPanel({ emoji, title, description, children }) {
         >
           { emoji }
         </Box>
-        <Typography component="h3" sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, fontWeight: 700, color: 'text.primary' }}>
+        <Typography component="h3" sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' }, fontWeight: 900, letterSpacing: '-0.02em', color: 'text.primary' }}>
           { title }
         </Typography>
       </Box>

@@ -8,15 +8,15 @@
 
 /**
  * 카테고리별 표시 이름과 색상
- * color : 프로그레스 바·포인트 색 / soft : 아이콘 배경·바 트랙 색
- * (파스텔 계열이라 라이트·다크 모드 모두에서 무난하게 보여요)
+ * color : 프로그레스 바·카드 배경 원색 / soft : 아이콘 배경·바 트랙 색 / on : color 위 글자색
+ * (theme.js 의 VIVID 와 같은 원색)
  */
 export const SKILL_CATEGORIES = {
-  Frontend: { label: 'Frontend', color: '#F7A66F', soft: 'rgba(247, 166, 111, 0.2)' },
-  Framework: { label: 'Framework', color: '#A78BDA', soft: 'rgba(167, 139, 218, 0.2)' },
-  Backend: { label: 'Backend', color: '#5CC2A6', soft: 'rgba(92, 194, 166, 0.2)' },
-  Design: { label: 'Design', color: '#F28CB1', soft: 'rgba(242, 140, 177, 0.2)' },
-  Tools: { label: '도구 & 기타', color: '#6FAEE8', soft: 'rgba(111, 174, 232, 0.2)' },
+  Frontend: { label: 'Frontend', color: '#FF6A6F', soft: 'rgba(255, 106, 111, 0.18)', on: '#121212' },
+  Framework: { label: 'Framework', color: '#0A6CFF', soft: 'rgba(10, 108, 255, 0.14)', on: '#FFFFFF' },
+  Backend: { label: 'Backend', color: '#19E05A', soft: 'rgba(25, 224, 90, 0.2)', on: '#121212' },
+  Design: { label: 'Design', color: '#FF3B7F', soft: 'rgba(255, 59, 127, 0.16)', on: '#FFFFFF' },
+  Tools: { label: '도구 & 기타', color: '#FFD23F', soft: 'rgba(255, 210, 63, 0.24)', on: '#121212' },
 };
 
 /** 화면에 카테고리를 보여줄 순서 */

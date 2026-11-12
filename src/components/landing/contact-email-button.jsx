@@ -8,7 +8,7 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 /**
  * ContactEmailButton 컴포넌트
  *
- * 이메일을 눈에 띄는 큰 오렌지 버튼으로 보여준다. 주소는 화면에 표시하지 않고, 누르면 메일 앱이 열리며 아래 버튼으로 주소를 복사할 수 있다.
+ * 이메일을 눈에 띄는 큰 검정 알약 버튼으로 보여준다. 주소는 화면에 표시하지 않고, 누르면 메일 앱이 열리며 아래 버튼으로 주소를 복사할 수 있다.
  *
  * Props:
  * @param {string} email - 연락받을 이메일 주소 [Required]

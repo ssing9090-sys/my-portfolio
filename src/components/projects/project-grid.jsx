@@ -36,16 +36,16 @@ function ProjectGrid({ projects, isLoading = false, error = '', headingComponent
   }
 
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }}>
+    <Grid container spacing={{ xs: 2, md: 3 }} sx={{ justifyContent: 'center' }}>
       { isLoading
         ? SKELETON_KEYS.map((key) => (
           <Grid size={ GRID_SIZE } key={ key }>
             <ProjectCardSkeleton />
           </Grid>
         ))
-        : projects.map((project) => (
+        : projects.map((project, index) => (
           <Grid size={ GRID_SIZE } key={ project.id }>
-            <ProjectCard project={ project } headingComponent={ headingComponent } />
+            <ProjectCard project={ project } index={ index } headingComponent={ headingComponent } />
           </Grid>
         )) }
     </Grid>

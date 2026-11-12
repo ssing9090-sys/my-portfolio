@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import ErrorBoundary from './components/common/error-boundary.jsx';
+import Footer from './components/common/footer.jsx';
 import Navigation from './components/common/navigation.jsx';
 import useRouteScroll from './hooks/use-route-scroll.js';
 import AboutPage from './pages/about-page.jsx';
@@ -16,7 +17,6 @@ function SkipToContent() {
   return (
     <Button
       variant="contained"
-      disableElevation
       onClick={ () => document.getElementById(MAIN_ID)?.focus() }
       sx={{
         position: 'fixed',
@@ -29,6 +29,15 @@ function SkipToContent() {
     >
       본문으로 건너뛰기
     </Button>
+  );
+}
+
+/** About·Projects 처럼 가운데 정렬 폭이 필요한 페이지 틀 (홈은 풀폭 섹션이라 쓰지 않아요) */
+function ContainedPage({ children }) {
+  return (
+    <Container maxWidth="md" sx={{ py: { xs: 4, md: 7 }, px: { xs: 2, md: 3 } }}>
+      { children }
+    </Container>
   );
 }
 
@@ -52,8 +61,8 @@ function AnimatedRoutes() {
       >
         <Routes location={ location }>
           <Route path="/" element={ <HomePage /> } />
-          <Route path="/about" element={ <AboutPage /> } />
-          <Route path="/projects" element={ <ProjectsPage /> } />
+          <Route path="/about" element={ <ContainedPage><AboutPage /></ContainedPage> } />
+          <Route path="/projects" element={ <ContainedPage><ProjectsPage /></ContainedPage> } />
           <Route path="*" element={ <Navigate to="/" replace /> } />
         </Routes>
       </Box>
@@ -76,24 +85,10 @@ function App() {
     <HashRouter>
       <SkipToContent />
       <Navigation />
-      <Box
-        id={ MAIN_ID }
-        component="main"
-        tabIndex={ -1 }
-        sx={{
-          width: '100%',
-          flexGrow: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          py: { xs: 2, md: 4 },
-          outline: 'none',
-        }}
-      >
-        <Container maxWidth="md" sx={{ py: 4, px: { xs: 2, md: 3 } }}>
-          <AnimatedRoutes />
-        </Container>
+      <Box id={ MAIN_ID } component="main" tabIndex={ -1 } sx={{ width: '100%', flexGrow: 1, outline: 'none' }}>
+        <AnimatedRoutes />
       </Box>
+      <Footer />
     </HashRouter>
   );
 }

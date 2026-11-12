@@ -14,19 +14,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * @param {boolean} isLoading - 로딩 중 여부 [Required]
  * @param {React.ReactNode} skeleton - 로딩 중에 보여줄 자리표시자 [Required]
  * @param {React.ReactNode} children - 로딩이 끝나면 보여줄 내용 [Required]
+ * @param {boolean} inline - 감싸는 태그 없이 그대로 그리기 (ul 안의 li 목록처럼 구조를 지켜야 할 때, 페이드 없음) [Optional, 기본값: false]
  *
  * Example usage:
  * <LoadingFade isLoading={ isPlaceholder } skeleton={ <SkillIconListSkeleton /> }>
  *   <SkillIconList skills={ skills } />
  * </LoadingFade>
  */
-function LoadingFade({ isLoading, skeleton, children }) {
+function LoadingFade({ isLoading, skeleton, children, inline = false }) {
   // 처음 그려질 때 로딩 중이었는지 기억해 둔다. (그때만 페이드인)
   const [startedLoading] = useState(isLoading);
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   if (isLoading) {
     return skeleton;
+  }
+
+  if (inline) {
+    return children;
   }
 
   return (
