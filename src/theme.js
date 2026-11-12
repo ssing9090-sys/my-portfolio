@@ -58,6 +58,11 @@ const theme = createTheme({
     h1: { fontSize: '2.125rem', fontWeight: 800 },
     button: { fontWeight: 700, letterSpacing: '0.02em' },
   },
+  // MUI 기본값에 태블릿(768px) 단계만 추가. sx 에서 { xs, tablet, lg } 처럼 쓸 수 있어요.
+  // (모바일 ~767 · 태블릿 768~1199 · 데스크톱 1200~)
+  breakpoints: {
+    values: { xs: 0, sm: 600, tablet: 768, md: 900, lg: 1200, xl: 1536 },
+  },
   shape: { borderRadius: 12 },
   spacing: 8,
   components: {
