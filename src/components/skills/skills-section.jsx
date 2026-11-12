@@ -1,8 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -13,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { HOME_SKILL_COUNT_MAX, HOME_SKILL_COUNT_MIN } from '../../data/about-me-data.js';
 import { SKILL_CATEGORIES } from '../../data/skills-data.js';
+import { CREAM } from '../../theme.js';
+import AboutBand from '../about/about-band.jsx';
 import useSkills from '../../hooks/use-skills.js';
 import { groupByCategory, sortByLevel } from '../../utils/skills.js';
 import AddSkillDialog from './add-skill-dialog.jsx';
@@ -30,7 +30,7 @@ const HOME_COUNT_OPTIONS = Array.from(
 /**
  * SkillsSection 컴포넌트
  *
- * 스킬 카드를 카테고리별로 묶어 보여주고, 정렬 전환을 제공한다.
+ * 크림색 풀폭 띠(AboutBand)에 스킬 카드를 카테고리별로 묶어 보여주고, 정렬 전환을 제공한다.
  * 편집 모드에서는 숙련도 조절·스킬 추가·추가한 스킬 삭제가 가능하다.
  *
  * Props:
@@ -62,125 +62,115 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
   const handleLevelChange = useCallback((skillId, level) => updateSkill(skillId, { level }), [updateSkill]);
   const handleToggleMain = useCallback((skillId, showInHome) => updateSkill(skillId, { showInHome }), [updateSkill]);
 
-  return (
-    <Card
-      id={ id }
-      component="section"
-      aria-labelledby={ `${id}-title` }
-      tabIndex={ -1 }
-      elevation={ 0 }
-      sx={{
-        border: 1,
-        borderColor: 'divider',
-        borderTop: 6,
-        borderTopColor: 'primary.main',
-        outline: 'none',
-        scrollMarginTop: { xs: 112, sm: 80 },
-      }}
-    >
-      <CardContent sx={{ px: { xs: 2, md: 4 }, py: { xs: 4, md: 5 } }}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: { xs: 'flex-start', sm: 'flex-end' },
-            justifyContent: 'space-between',
-            gap: 2,
-            mb: 4,
-          }}
+  const actions = (
+    <>
+      <ToggleButtonGroup
+        size="small"
+        exclusive
+        value={ sortMode }
+        onChange={ (_event, value) => value && setSortMode(value) }
+        aria-label="스킬 정렬"
+        sx={{
+          bgcolor: '#FFFFFF',
+          borderRadius: 999,
+          '& .MuiToggleButton-root': { px: 2, border: '2px solid', borderColor: 'text.primary', fontWeight: 800, textTransform: 'none', color: 'text.primary' },
+          '& .MuiToggleButton-root:first-of-type': { borderRadius: '999px 0 0 999px' },
+          '& .MuiToggleButton-root:last-of-type': { borderRadius: '0 999px 999px 0' },
+          '& .MuiToggleButton-root.Mui-selected, & .MuiToggleButton-root.Mui-selected:hover': { bgcolor: 'text.primary', color: '#FFFFFF' },
+        }}
+      >
+        <ToggleButton value="default">기본 순</ToggleButton>
+        <ToggleButton value="level">숙련도 순</ToggleButton>
+      </ToggleButtonGroup>
+      { isEditing && (
+        <TextField
+          select
+          size="small"
+          label="홈에 표시"
+          value={ homeSkillCount }
+          onChange={ (event) => updateHomeSkillCount(Number(event.target.value)) }
+          sx={{ minWidth: 120, bgcolor: '#FFFFFF', borderRadius: '14px' }}
         >
-          <Box>
-            <Typography
-              id={ `${id}-title` }
-              component="h2"
-              sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 700, color: 'text.primary' }}
-            >
-              Skills
-            </Typography>
-            <Typography sx={{ mt: 0.5, color: 'text.secondary', wordBreak: 'keep-all' }}>
-              { isEditing
-                ? '별(★)을 켠 메인 스킬 중 숙련도가 높은 순으로 홈 탭에 보여줘요.'
-                : '카드에 마우스를 올리면 어떻게 써 왔는지 볼 수 있어요.' }
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-            <ToggleButtonGroup
-              size="small"
-              exclusive
-              value={ sortMode }
-              onChange={ (_event, value) => value && setSortMode(value) }
-              aria-label="스킬 정렬"
-            >
-              <ToggleButton value="default">기본 순</ToggleButton>
-              <ToggleButton value="level">숙련도 순</ToggleButton>
-            </ToggleButtonGroup>
-            { isEditing && (
-              <TextField
-                select
-                size="small"
-                label="홈에 표시"
-                value={ homeSkillCount }
-                onChange={ (event) => updateHomeSkillCount(Number(event.target.value)) }
-                sx={{ minWidth: 112 }}
-              >
-                { HOME_COUNT_OPTIONS.map((count) => (
-                  <MenuItem key={ count } value={ count }>상위 { count }개</MenuItem>
-                )) }
-              </TextField>
-            ) }
-            { isEditing && (
-              <Button
-                variant="contained"
-                size="small"
-                disableElevation
-                startIcon={ <AddRoundedIcon /> }
-                onClick={ () => setIsDialogOpen(true) }
-                disabled={ availableSkills.length === 0 }
-              >
-                스킬 추가
-              </Button>
-            ) }
-          </Box>
-        </Box>
+          { HOME_COUNT_OPTIONS.map((count) => (
+            <MenuItem key={ count } value={ count }>상위 { count }개</MenuItem>
+          )) }
+        </TextField>
+      ) }
+      { isEditing && (
+        <Button
+          variant="contained"
+          startIcon={ <AddRoundedIcon /> }
+          onClick={ () => setIsDialogOpen(true) }
+          disabled={ availableSkills.length === 0 }
+          sx={{ minHeight: 40, fontWeight: 800 }}
+        >
+          스킬 추가
+        </Button>
+      ) }
+    </>
+  );
 
-        { groups.length === 0 && (
-          <Typography sx={{ py: 4, textAlign: 'center', color: 'text.secondary' }}>
-            아직 등록된 스킬이 없어요. 편집 모드에서 스킬을 추가해 주세요.
-          </Typography>
-        ) }
+  return (
+    <AboutBand
+      id={ id }
+      bgcolor={ CREAM }
+      kicker="what I can do"
+      title="My skills"
+      description={ isEditing
+        ? '별(★)을 켠 메인 스킬 중 숙련도가 높은 순으로 홈 탭에 보여줘요.'
+        : '카드에 마우스를 올리면 어떻게 써 왔는지 볼 수 있어요.' }
+      actions={ actions }
+    >
+      { groups.length === 0 && (
+        <Typography sx={{ py: 4, textAlign: 'center', color: 'text.secondary' }}>
+          아직 등록된 스킬이 없어요. 편집 모드에서 스킬을 추가해 주세요.
+        </Typography>
+      ) }
 
-        <Stack spacing={ 4 }>
-          { groups.map((group) => {
-            const category = SKILL_CATEGORIES[group.category];
-            return (
-              <Box key={ group.category } component="section" aria-labelledby={ `${id}-${group.category}` }>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                  <Box aria-hidden="true" sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: category.color }} />
-                  <Typography id={ `${id}-${group.category}` } component="h3" sx={{ fontWeight: 700, color: 'text.primary' }}>
-                    { category.label }
-                  </Typography>
-                  <Typography aria-label={ `${group.skills.length}개` } sx={{ fontSize: '0.9rem', color: 'text.secondary' }}>
-                    { group.skills.length }
-                  </Typography>
-                </Box>
-                <Grid container spacing={{ xs: 2, md: 2.5 }}>
-                  { group.skills.map((skill) => (
-                    <Grid size={ GRID_SIZE } key={ skill.id }>
-                      <SkillCard
-                        skill={ skill }
-                        isInHome={ homeSkillIds.has(skill.id) }
-                        onRemove={ isEditing && skill.isCustom ? removeSkill : undefined }
-                        onLevelChange={ isEditing ? handleLevelChange : undefined }
-                        onToggleMain={ isEditing ? handleToggleMain : undefined }
-                      />
-                    </Grid>
-                  )) }
-                </Grid>
+      <Stack spacing={{ xs: 5, md: 6 }}>
+        { groups.map((group) => {
+          const category = SKILL_CATEGORIES[group.category];
+          return (
+            <Box key={ group.category } component="section" aria-labelledby={ `${id}-${group.category}` }>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+                <Typography
+                  id={ `${id}-${group.category}` }
+                  component="h3"
+                  sx={{
+                    px: 2,
+                    py: 0.75,
+                    borderRadius: 999,
+                    bgcolor: category.color,
+                    color: category.on,
+                    fontSize: { xs: '1rem', md: '1.15rem' },
+                    fontWeight: 900,
+                    letterSpacing: '0.02em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  { category.label }
+                </Typography>
+                <Typography aria-label={ `${group.skills.length}개` } sx={{ fontSize: '1rem', fontWeight: 800, color: 'text.secondary' }}>
+                  { group.skills.length }
+                </Typography>
               </Box>
-            );
-          }) }
-        </Stack>
-      </CardContent>
+              <Grid container spacing={{ xs: 2, md: 2.5 }}>
+                { group.skills.map((skill) => (
+                  <Grid size={ GRID_SIZE } key={ skill.id }>
+                    <SkillCard
+                      skill={ skill }
+                      isInHome={ homeSkillIds.has(skill.id) }
+                      onRemove={ isEditing && skill.isCustom ? removeSkill : undefined }
+                      onLevelChange={ isEditing ? handleLevelChange : undefined }
+                      onToggleMain={ isEditing ? handleToggleMain : undefined }
+                    />
+                  </Grid>
+                )) }
+              </Grid>
+            </Box>
+          );
+        }) }
+      </Stack>
 
       <AddSkillDialog
         open={ isDialogOpen }
@@ -188,7 +178,7 @@ function SkillsSection({ id = 'skills', isEditing = false }) {
         onAdd={ addSkill }
         availableSkills={ availableSkills }
       />
-    </Card>
+    </AboutBand>
   );
 }
 

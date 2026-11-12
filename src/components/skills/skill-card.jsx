@@ -58,13 +58,14 @@ function SkillCard({ skill, isInHome = false, onRemove, onLevelChange, onToggleM
         elevation={ 0 }
         sx={{
           height: '100%',
-          border: 1,
-          borderColor: 'divider',
+          borderRadius: '24px',
+          border: '2px solid transparent',
+          bgcolor: '#FFFFFF',
           outline: 'none',
           transition: prefersReducedMotion ? 'none' : `border-color 0.2s, transform 0.3s ${BOUNCE_EASING}`,
           '&:hover, &:focus-visible': {
             borderColor: category.color,
-            transform: prefersReducedMotion || isEditing ? 'none' : 'translateY(-3px)',
+            transform: prefersReducedMotion || isEditing ? 'none' : 'translateY(-6px)',
           },
           '&:focus-visible': { boxShadow: `0 0 0 3px ${category.soft}` },
         }}
@@ -74,12 +75,12 @@ function SkillCard({ skill, isInHome = false, onRemove, onLevelChange, onToggleM
             <Box
               aria-hidden="true"
               sx={{
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 flexShrink: 0,
                 display: 'grid',
                 placeItems: 'center',
-                borderRadius: 2,
+                borderRadius: '50%',
                 bgcolor: category.soft,
                 fontSize: '1.25rem',
               }}
@@ -87,7 +88,7 @@ function SkillCard({ skill, isInHome = false, onRemove, onLevelChange, onToggleM
               { icon }
             </Box>
             <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: 0.75, flexWrap: 'wrap' }}>
-              <Typography component="h4" sx={{ fontSize: '1.05rem', fontWeight: 700, color: 'text.primary' }}>
+              <Typography component="h4" sx={{ fontSize: '1.15rem', fontWeight: 900, letterSpacing: '-0.02em', color: 'text.primary' }}>
                 { skill.name }
               </Typography>
               { isInHome && (
@@ -99,7 +100,7 @@ function SkillCard({ skill, isInHome = false, onRemove, onLevelChange, onToggleM
                 />
               ) }
             </Box>
-            <Typography sx={{ fontWeight: 700, color: 'text.secondary', fontVariantNumeric: 'tabular-nums' }}>
+            <Typography sx={{ fontWeight: 900, fontSize: '1.1rem', color: 'text.primary', fontVariantNumeric: 'tabular-nums' }}>
               { skill.level }%
             </Typography>
             { onToggleMain && (
@@ -130,11 +131,11 @@ function SkillCard({ skill, isInHome = false, onRemove, onLevelChange, onToggleM
             value={ shownLevel }
             aria-label={ `${skill.name} 숙련도` }
             sx={{
-              height: 8,
-              borderRadius: 4,
+              height: 10,
+              borderRadius: 5,
               bgcolor: category.soft,
               '& .MuiLinearProgress-bar': {
-                borderRadius: 4,
+                borderRadius: 5,
                 bgcolor: category.color,
                 transition: prefersReducedMotion ? 'none' : `transform 1.2s ${BOUNCE_EASING}`,
               },

@@ -32,7 +32,7 @@ function SkipToContent() {
   );
 }
 
-/** About·Projects 처럼 가운데 정렬 폭이 필요한 페이지 틀 (홈은 풀폭 섹션이라 쓰지 않아요) */
+/** Projects 처럼 가운데 정렬 폭이 필요한 페이지 틀 (홈·About 은 풀폭 섹션이라 쓰지 않아요) */
 function ContainedPage({ children }) {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 7 }, px: { xs: 2, md: 3 } }}>
@@ -61,7 +61,7 @@ function AnimatedRoutes() {
       >
         <Routes location={ location }>
           <Route path="/" element={ <HomePage /> } />
-          <Route path="/about" element={ <ContainedPage><AboutPage /></ContainedPage> } />
+          <Route path="/about" element={ <AboutPage /> } />
           <Route path="/projects" element={ <ContainedPage><ProjectsPage /></ContainedPage> } />
           <Route path="*" element={ <Navigate to="/" replace /> } />
         </Routes>
